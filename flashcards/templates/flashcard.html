@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flashcards for {{ topic.name_topic }}</title>
+</head>
+<body>
+    <h1>Flashcards for Topic: {{ topic.name_topic }}</h1>
+    <ul>
+        {% for flashcard in flashcards_list %}
+            <li>
+                <strong>Front:</strong> {{ flashcard.front }} <br>
+                <strong>Back:</strong> {{ flashcard.back }}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'topics' %}">Back to Topics</a>
+</body>
+</html>
