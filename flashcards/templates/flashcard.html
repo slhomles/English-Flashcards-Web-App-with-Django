@@ -1,19 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcards for {{ topic.name_topic }}</title>
+    <link rel="stylesheet" href="{% static 'css/flashcards.css' %}">
 </head>
 <body>
     <h1>Flashcards for Topic: {{ topic.name_topic }}</h1>
-    <ul>
+
+    <div class="flashcards-container">
         {% for flashcard in flashcards_list %}
-            <li>
-                <strong>Front:</strong> {{ flashcard.front }} <br>
-                <strong>Back:</strong> {{ flashcard.back }}
-            </li>
+            <div class="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <p>{{ flashcard.front }}</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <p>{{ flashcard.back }}</p>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+
     <a href="{% url 'topics' %}">Back to Topics</a>
+
+    <script src="{% static 'js/flashcards.js' %}"></script> <!-- Tải file JavaScript -->
 </body>
 </html>
