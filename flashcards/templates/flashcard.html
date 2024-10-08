@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcards for {{ topic.name_topic }}</title>
-    <link rel="stylesheet" href="{% static 'css/flashcards.css' %}">
+    <link rel="stylesheet" href="{% static 'flashcards.css' %}">
 </head>
 <body>
     <h1>Flashcards for Topic: {{ topic.name_topic }}</h1>
@@ -27,6 +27,6 @@
 
     <a href="{% url 'topics' %}">Back to Topics</a>
 
-    <script src="{% static 'js/flashcards.js' %}"></script> <!-- Tải file JavaScript -->
+    <script src="{% static 'flashcards.js' %}"></script> <!-- Tải file JavaScript -->
 </body>
 </html>
