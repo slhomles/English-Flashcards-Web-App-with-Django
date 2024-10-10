@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ topic.name }} - Words</title>
+</head>
+
+<body>
+    {% block main-content %}
+    <h1>Words in {{ topic.name }}</h1>
+    <ol class="list-group list-group-numbered">
+    {% for word in {{ topic.name }} %}
+    <li class="list-group-item"><a href="{% url 'word_detail' word.id %}">{{ word.front }}</a></li>
+    {% endfor %}
+    </ol>
+    <a href="{% url 'topics' %}">Back to Topics</a>
+    {% endblock main-content %}
+</body>
+
+</html>
