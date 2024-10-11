@@ -6,10 +6,10 @@ from django.shortcuts import render,get_object_or_404
 
 # Create your views here.
 def topics(request):
-    mytopics = Topic.objects.all().values()
-    template = loader.get_template('all_topic.html')
+    topics = Topic.objects.all().values()
+    template = loader.get_template('topics.html')
     context ={
-        'mytopics':mytopics,
+        'topics':topics,
     }
     return HttpResponse(template.render(context,request))
 
@@ -23,4 +23,4 @@ def flashcards(request, id_topic):
         'flashcards_list': flashcards_list
     }
     
-    return render(request, 'flashcard.html', context)
+    return render(request, 'topic_detail.html', context)
