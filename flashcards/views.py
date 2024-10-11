@@ -8,19 +8,25 @@ from django.shortcuts import render,get_object_or_404
 def topics(request):
     topics = Topic.objects.all().values()
     template = loader.get_template('topics.html')
-    context ={
-        'topics':topics,
+    context = {
+        'topics': topics,
     }
-    return HttpResponse(template.render(context,request))
+    return HttpResponse(template.render(context, request))
 
 
 def flashcards(request, id_topic):
     topic = get_object_or_404(Topic, id_topic=id_topic)
     flashcards_list = Flashcards.objects.filter(id_topic=topic)
-    
     context = {
         'topic': topic,
         'flashcards_list': flashcards_list
     }
     
     return render(request, 'topic_detail.html', context)
+ 
+def word_detail(request, id_flashcard):
+    word = get_object_or_404(Flashcards, id_flashcard=id_flashcard)
+    context = {
+        'word': word,
+    }
+    return render(request, 'word_detail.html', context)

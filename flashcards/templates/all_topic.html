@@ -7,7 +7,7 @@
 <body>
     <h1>All Topics</h1>
     <ul>
-        {% for topic in mytopics %}
+        {% for topic in topics %}
             <li>
                 <a href="{% url 'flashcards' topic.id_topic %}">
                     {{ topic.name_topic }}
