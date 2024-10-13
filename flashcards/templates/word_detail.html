@@ -74,7 +74,7 @@
         </div>
     </div>
     <div class="text-below">
-        <h2><a href="{% url 'topic_detail' word.topic.id %}">Back to Topic</a></h2>
+        <h2><a href="{% url 'flashcards' word.id_topic.id_topic %}">Back to words</a></h2>
     </div>
     <script>
         document.getElementById('flipCard').addEventListener('click', function() {
