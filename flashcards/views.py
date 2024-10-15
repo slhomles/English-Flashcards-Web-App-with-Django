@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from .models import Topic, Flashcards
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
+from .forms import TopicForm
 
 # Create your views here.
 def topics(request):
@@ -30,3 +30,13 @@ def word_detail(request, id_flashcard):
         'word': word,
     }
     return render(request, 'word_detail.html', context)
+
+def create_topic(request):
+  if request.method == 'POST':
+    form = TopicForm(request.POST)
+    if form.is_valid():
+      form.save()
+      return redirect("success")
+  else:
+    form = TopicForm()
+  return render(request,'forms.html',{'form':form})
