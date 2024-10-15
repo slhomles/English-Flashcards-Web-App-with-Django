@@ -2,7 +2,7 @@ from .models import Topic, Flashcards
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render,get_object_or_404,redirect
-from .forms import TopicForm
+from .forms import TopicForm, FlashcardsForm
 
 # Create your views here.
 def topics(request):
@@ -36,10 +36,23 @@ def create_topic(request):
     form = TopicForm(request.POST)
     if form.is_valid():
       form.save()
-      return redirect("success")
+      return redirect("topics")
   else:
     form = TopicForm()
   return render(request,'forms.html',{'form':form})
+
+def create_flashcard(request,id_topic):
+    topic = get_object_or_404(Topic, pk=id_topic)
+    form = FlashcardsForm(request.POST)
+    if form.is_valid():
+         flashcard = form.save(commit = False)
+         flashcard.id_topic = topic
+         flashcard.save()
+         return redirect('flashcards', id_topic=id_topic)
+    else:
+       form = FlashcardsForm()
+    return render(request,'forms.html',{'form': form})
+
 
 def success_view(request):
   return render(request,'success.html')
