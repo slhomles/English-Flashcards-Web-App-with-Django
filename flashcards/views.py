@@ -40,3 +40,6 @@ def create_topic(request):
   else:
     form = TopicForm()
   return render(request,'forms.html',{'form':form})
+
+def success_view(request):
+  return render(request,'success.html')
