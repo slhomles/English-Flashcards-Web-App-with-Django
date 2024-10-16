@@ -1,14 +1,9 @@
+{% extends 'master.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip Card on Click</title>
-    <link rel="stylesheet" href="{% static 'word_detail.css' %}">
-</head>
-<body>
-    {% block main-content %}
+
+{% block title %}Flip Card on Click{% endblock %}
+
+{% block content %}
     <div class="flip-card" id="flipCard">
         <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -29,6 +24,4 @@
             this.classList.toggle('show-back');
         });
     </script>
-   {% endblock main-content %}
-</body>
-</html>
+{% endblock %}

@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'master.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ topic.name }} - Words</title>
-</head>
+{% block title %}{{ topic.name }} - Words{% endblock %}
 
-<body>
+{% block content %}
     {% block main-content %}
     <h1>Words in {{ topic.name_topic }}</h1>
     <ol class="list-group list-group-numbered">
@@ -17,8 +12,4 @@
     </ol>
     <a href="{% url 'topics' %}">Back to Topics</a>
     <a href="{% url 'create_flashcard' topic.id_topic %}">Create a new flashcard</a>
-    {% endblock main-content %}
-
-</body>
-
-</html>
+{% endblock main-content %}
