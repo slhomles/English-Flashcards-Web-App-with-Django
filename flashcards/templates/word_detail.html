@@ -3,25 +3,32 @@
 
 {% block title %}Flip Card on Click{% endblock %}
 
-{% block content %}
-    <div class="flip-card" id="flipCard">
-        <div class="flip-card-inner">
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/word_detail.css' %}">
+{% endblock %}
+    {% block content %}
+    <div class="flip-card-container">
+        <div class="flip-card" id="flipCard">
+          <div class="flip-card-inner">
             <div class="flip-card-front">
-                <h1>{{ word.front }}</h1>
-                <p>More Content In Future</p>
+              <h1>{{ word.front }}</h1>
+              <p>More Content In Future</p>
             </div>
             <div class="flip-card-back">
-                <h1>Definition: {{ word.back }}</h1>
-                <p>More content In Future</p>
+              <h1>Definition: {{ word.back }}</h1>
+              <p>More content In Future</p>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="text-below">
-        <h2><a href="{% url 'flashcards' word.id_topic.id_topic %}">Back to words</a></h2>
-    </div>
-    <script>
+        <div class="text-below">
+          <h2><a href="{% url 'flashcards' word.id_topic.id_topic %}">Back to words</a></h2>
+        </div>
+      </div>
+      <script>
         document.getElementById('flipCard').addEventListener('click', function() {
-            this.classList.toggle('show-back');
+          this.classList.toggle('show-back');
         });
-    </script>
-{% endblock %}
+      </script>    
+   {% endblock %}
+
+</html>
