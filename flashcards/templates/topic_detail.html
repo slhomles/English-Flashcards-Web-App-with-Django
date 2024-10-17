@@ -1,4 +1,5 @@
 {% extends 'master.html' %}
+{% load static %}
 
 {% load static %}
 
@@ -18,4 +19,4 @@
     <a href="{% url 'topics' %}">Back to Topics</a>
     <br>
     <a href="{% url 'create_flashcard' topic.id_topic %}">Create a new flashcard</a>
-{% endblock content %}
+{% endblock %}
