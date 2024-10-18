@@ -9,7 +9,7 @@
     <ul>
         {% for topic in topics %}
             <li>
-                <a href="{% url 'flashcards' topic.id_topic %}">
+                <a href="{% url 'flashcards' topic.slug_topic %}">
                     {{ topic.name_topic }}
                 </a>
             </li>
