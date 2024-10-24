@@ -16,7 +16,7 @@ def topics(request):
 
 def flashcards(request, slug_topic):
     topic = get_object_or_404(Topic, slug_topic=slug_topic)
-    flashcards_list = Flashcards.objects.filter(id_topic=topic)
+    flashcards_list = Flashcards.objects.filter(slug_topic=topic)
     context = {
         'topic': topic,
         'flashcards_list': flashcards_list
@@ -46,7 +46,7 @@ def create_flashcard(request,slug_topic):
     form = FlashcardsForm(request.POST)
     if form.is_valid():
          flashcard = form.save(commit = False)
-         flashcard.id_topic = topic
+         flashcard.slug_topic = topic
          flashcard.save()
          return redirect('flashcards', slug_topic=slug_topic)
     else:

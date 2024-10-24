@@ -14,6 +14,7 @@ class Flashcards(models.Model):
     front = models.CharField(max_length = 200, blank = False)
     back = models.CharField(max_length = 300, blank = False)
     id_topic = models.ForeignKey(Topic,on_delete = models.CASCADE )
+    slug_topic = models.SlugField(default = "", null = False)
     slug_flashcard = models.SlugField(default = "", null = False)
 
     def __str__(self):
