@@ -16,7 +16,8 @@
                 {% for topic in topics %}
                 <div class ="col">
                     <div class="card" style="width: 18rem;">
-                        <img src="" class="card-img-top" alt="Image">
+                        <img src="{% if topic.image_topic %}{{ topic.image_topic.url }}{% else %}{{ default_image_url }}{% endif %}" class="card-img-top" alt="{{ topic.name_topic }}">
+
                         <div class="card-body">
                             <a href="{% url 'flashcards' topic.id_topic %}">{{ topic.name_topic }}</a>
                         </div>

@@ -4,6 +4,7 @@ from django.db import models
 class Topic(models.Model):
     id_topic = models.AutoField(primary_key = True, null = False)
     name_topic = models.CharField(max_length = 50, blank = False)
+    image_topic = models.ImageField(upload_to= 'images/', height_field=None, width_field=None, max_length=100,blank = True, null = True)
 
     def __str__(self):
         return f'{self.name_topic}'

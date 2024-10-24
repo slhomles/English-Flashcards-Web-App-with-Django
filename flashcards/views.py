@@ -6,12 +6,12 @@ from .forms import TopicForm, FlashcardsForm
 
 # Create your views here.
 def topics(request):
-    topics = Topic.objects.all().values()
-    template = loader.get_template('topics.html')
+    topics = Topic.objects.all()  # Không sử dụng .values() ở đây
     context = {
         'topics': topics,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'topics.html', context)
+
 
 
 def flashcards(request, id_topic):
@@ -32,14 +32,14 @@ def word_detail(request, id_flashcard):
     return render(request, 'word_detail.html', context)
 
 def create_topic(request):
-  if request.method == 'POST':
-    form = TopicForm(request.POST)
-    if form.is_valid():
-      form.save()
-      return redirect("topics")
-  else:
-    form = TopicForm()
-  return render(request,'forms.html',{'form':form})
+    if request.method == 'POST':
+        form = TopicForm(request.POST, request.FILES)  # Thêm request.FILES để xử lý file upload
+        if form.is_valid():
+            form.save()
+            return redirect("topics")
+    else:
+        form = TopicForm()
+    return render(request, 'forms.html', {'form': form})
 
 def create_flashcard(request,id_topic):
     topic = get_object_or_404(Topic, pk=id_topic)
