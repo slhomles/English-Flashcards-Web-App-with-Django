@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Card on Click</title>
+    <link rel="stylesheet" href="{% static 'word_detail.css' %}">
+</head>
+<body>
+    {% block main-content %}
+    <div class="flip-card" id="flipCard">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <h1>{{ word.front }}</h1>
+                <p>More Content In Future</p>
+            </div>
+            <div class="flip-card-back">
+                <h1>Definition: {{ word.back }}</h1>
+                <p>More content In Future</p>
+            </div>
+        </div>
+    </div>
+    <div class="text-below">
+        <h2><a href="{% url 'flashcards' word.id_topic.id_topic %}">Back to words</a></h2>
+    </div>
+    <script>
+        document.getElementById('flipCard').addEventListener('click', function() {
+            this.classList.toggle('show-back');
+        });
+    </script>
+   {% endblock main-content %}
+</body>
+</html>

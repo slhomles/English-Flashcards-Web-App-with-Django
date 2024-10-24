@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ topic.name }} - Words</title>
+</head>
+
+<body>
+    {% block main-content %}
+    <h1>Words in {{ topic.name_topic }}</h1>
+    <ol class="list-group list-group-numbered">
+    {% for word in flashcards_list %}
+     <li class="list-group-item"><a href="{% url 'word_detail' word.id_flashcard %}">{{ word.front }}</a></li> 
+    {% endfor %}
+    </ol>
+    <a href="{% url 'topics' %}">Back to Topics</a>
+    <a href="{% url 'create_flashcard' topic.slug_topic %}">Create a new flashcard</a>
+    {% endblock main-content %}
+
+</body>
+
+</html>
