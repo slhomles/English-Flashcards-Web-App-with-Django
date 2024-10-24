@@ -14,9 +14,9 @@ def topics(request):
     return HttpResponse(template.render(context, request))
 
 
-def flashcards(request, id_topic):
-    topic = get_object_or_404(Topic, id_topic=id_topic)
-    flashcards_list = Flashcards.objects.filter(id_topic=topic)
+def flashcards(request, slug_topic):
+    topic = get_object_or_404(Topic, slug_topic=slug_topic)
+    flashcards_list = Flashcards.objects.filter(slug_topic=topic)
     context = {
         'topic': topic,
         'flashcards_list': flashcards_list
@@ -24,8 +24,8 @@ def flashcards(request, id_topic):
     
     return render(request, 'topic_detail.html', context)
  
-def word_detail(request, id_flashcard):
-    word = get_object_or_404(Flashcards, id_flashcard=id_flashcard)
+def word_detail(request, slug_flashcard):
+    word = get_object_or_404(Flashcards, slug_flashcard=slug_flashcard)
     context = {
         'word': word,
     }
@@ -41,14 +41,14 @@ def create_topic(request):
     form = TopicForm()
   return render(request,'forms.html',{'form':form})
 
-def create_flashcard(request,id_topic):
-    topic = get_object_or_404(Topic, pk=id_topic)
+def create_flashcard(request,slug_topic):
+    topic = get_object_or_404(Topic, pk=slug_topic)
     form = FlashcardsForm(request.POST)
     if form.is_valid():
          flashcard = form.save(commit = False)
          flashcard.id_topic = topic
          flashcard.save()
-         return redirect('flashcards', id_topic=id_topic)
+         return redirect('flashcards', slug_topic=slug_topic)
     else:
        form = FlashcardsForm()
     return render(request,'forms.html',{'form': form})
