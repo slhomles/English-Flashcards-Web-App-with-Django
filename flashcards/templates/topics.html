@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlashCard Topics</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+{% extends 'master.html' %}
+{% load static %}
 
-<body>
-    {% block main-content %}
-    <h1>FlashCard Topics</h1>
+{% block title %}FlashCard Topics{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/CenterText.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>FlashCard {{topic}}</h1>
     <div class="container text-center">
         <div class="row row-cols-4">
             <ul>
@@ -19,7 +18,7 @@
                     <div class="card" style="width: 18rem;">
                         <img src="" class="card-img-top" alt="Image">
                         <div class="card-body">
-                            <a href="{% url 'topic_detail' topic.id %}">{{ topic.name }}</a>
+                            <a href="{% url 'flashcards' topic.slug_topic %}">{{ topic.name_topic }}</a>
                         </div>
                       </div>    
                 </div>
@@ -27,7 +26,4 @@
             </ul>
         </div>
     </div>
-    {% endblock main-content %}
-</body>
-
-</html>
+{% endblock %}
