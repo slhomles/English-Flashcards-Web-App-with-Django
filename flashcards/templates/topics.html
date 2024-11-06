@@ -1,0 +1,29 @@
+
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}FlashCard Topics{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/CenterText.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>FlashCard {{topic}}</h1>
+    <div class="container text-center">
+        <div class="row row-cols-4">
+            <ul>
+                {% for topic in topics %}
+                <div class ="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="" class="card-img-top" alt="Image">
+                        <div class="card-body">
+                            <a href="{% url 'flashcards' topic.slug_topic %}">{{ topic.name_topic }}</a>
+                        </div>
+                      </div>    
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
