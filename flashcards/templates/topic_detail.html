@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +10,18 @@
 
 <body>
     {% block main-content %}
+=======
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}{{ topic.name }} - Words{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/CenterText.css' %}">
+{% endblock %}
+
+{% block content %}
+>>>>>>> database
     <h1>Words in {{ topic.name_topic }}</h1>
     <ol class="list-group list-group-numbered">
     {% for word in flashcards_list %}
@@ -16,9 +29,15 @@
     {% endfor %}
     </ol>
     <a href="{% url 'topics' %}">Back to Topics</a>
+<<<<<<< HEAD
     <a href="{% url 'create_flashcard' topic.slug_topic %}">Create a new flashcard</a>
     {% endblock main-content %}
 
 </body>
 
 </html>
+=======
+    <br>
+    <a href="{% url 'create_flashcard' topic.slug_topic %}">Create a new flashcard</a>
+{% endblock %}
+>>>>>>> database
