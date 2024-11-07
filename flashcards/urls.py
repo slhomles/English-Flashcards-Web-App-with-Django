@@ -8,4 +8,5 @@ urlpatterns = [
     path('create_topic/',views.create_topic , name ='create_topic'),
     path('create_flashcard/<int:id_topic>/',views.create_flashcard, name = 'create_flashcard'),
     path('success/',views.success_view,name = 'success'),
+    path('topics/quiz/', views.quiz_view, name='quiz'), 
 ]
