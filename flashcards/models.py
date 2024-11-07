@@ -36,7 +36,7 @@ class Flashcards(models.Model):
 class User(models.Model):
     id_user = models.AutoField(primary_key= True, null=False)
     username = models.CharField(max_length=200, blank=False)
-    slug_user = models.SlugField(null=false)
+    slug_user = models.SlugField(null=False)
 
     def __str__(self):
         return f'{self.username}'
@@ -58,5 +58,5 @@ class Study(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug_study:  
-            self.slug_study = slugify(self.id_study+"_"+self.id_user) 
+            self.slug_study = slugify(f"{self.id_study}_{self.id_user.username}")
         super().save(*args, **kwargs)
