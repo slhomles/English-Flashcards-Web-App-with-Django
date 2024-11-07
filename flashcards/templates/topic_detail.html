@@ -1,20 +1,24 @@
 {% extends 'master.html' %}
 {% load static %}
 
-{% block title %}{{ topic.name }} - Words{% endblock %}
+{% block title %}{{ topic.name }} Words{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/CenterText.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/Topics.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h1>Words in {{ topic.name_topic }}</h1>
-    <ol class="list-group list-group-numbered">
-    {% for word in flashcards_list %}
-     <li class="list-group-item"><a href="{% url 'word_detail' word.id_flashcard %}">{{ word.front }}</a></li> 
-    {% endfor %}
-    </ol>
-    <a href="{% url 'topics' %}">Back to Topics</a>
-    <br>
-    <a href="{% url 'create_flashcard' topic.id_topic %}">Create a new flashcard</a>
+    <!-- Hiển thị tổng số từ -->
+    <h4>Chủ đề {{ topic.name_topic }} có {{ flashcards_list|length }} từ</h4>
+
+    <div class="word-list">
+        {% for word in flashcards_list %}
+        <div class="word-card list-group-item">
+            <div class="word-content">
+                <h5 class="word-title"><a href="{% url 'word_detail' word.id_flashcard %}">{{ word.front }}</a></h5>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

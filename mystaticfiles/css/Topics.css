@@ -1,0 +1,109 @@
+/* Container styling for centered grid layout */
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Card styling */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Title styling */
+.card-body a {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+    margin: 10px 0;
+    text-decoration: none;
+}
+
+.card-body a:hover {
+    color: #007bff;
+}
+
+/* Additional info styling */
+.card-info {
+    font-size: 0.9em;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 10px;
+}
+
+/* Căn giữa tiêu đề h1 */
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* Bố cục topic_detail */
+h4 {
+    margin-top: 20px;
+    /* Khoảng cách giữa tiêu đề "List có X từ" và thanh menu */
+    text-align: center;
+}
+
+/* Giới hạn chiều rộng của danh sách từ và căn giữa nó */
+.word-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 600px;
+    /* Giới hạn chiều rộng của danh sách từ */
+    margin: 0 auto;
+    /* Căn giữa danh sách từ trên màn hình */
+}
+
+/* Điều chỉnh kích thước và căn giữa của ô từ */
+.word-card {
+    width: 100%;
+    /* Chiều rộng tự điều chỉnh theo max-width của danh sách */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center;
+    /* Căn giữa chữ trong ô từ */
+}
+
+/*Màu của từ */
+.word-title a {
+    text-decoration: none;
+    color: #333;
+}
+
+.word-title a:hover {
+    color: #007bff;
+    /* Màu khi hover vào từ */
+}
