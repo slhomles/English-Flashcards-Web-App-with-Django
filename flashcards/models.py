@@ -2,8 +2,9 @@ from django.db import models
 from django.template.defaultfilters import default
 from django.utils.text import slugify
 
-# Create your models here.
+# Tạo các mô hình của bạn ở đây.
 class Topic(models.Model):
+<<<<<<< HEAD
     id_topic = models.AutoField(primary_key = True, null = False)
     name_topic = models.CharField(max_length = 50, blank = False)
     type_topic = models.CharField(default="", max_length = 50, blank = False)
@@ -13,11 +14,18 @@ class Topic(models.Model):
         if not self.slug_topic:  
             self.slug_topic = slugify(self.name_topic)
         super().save(*args, **kwargs)
+=======
+    id_topic = models.AutoField(primary_key=True, null=False)
+    name_topic = models.CharField(max_length=50, blank=False)
+    slug_topic = models.SlugField(default="", null=False)
+    image_topic = models.ImageField(upload_to='images/', max_length=100, blank=True, null=True)
+>>>>>>> create-models
 
     def __str__(self):
         return f'{self.name_topic}'
 
 class Flashcards(models.Model):
+<<<<<<< HEAD
     id_flashcard = models.AutoField(primary_key= True, null = False)
     front = models.CharField(max_length = 200, blank = False)
     back = models.CharField(max_length = 300, blank = False)
@@ -60,3 +68,14 @@ class Study(models.Model):
         if not self.slug_study:  
             self.slug_study = slugify(f"{self.id_study}_{self.id_user.username}")
         super().save(*args, **kwargs)
+=======
+    id_flashcard = models.AutoField(primary_key=True, null=False)
+    front = models.CharField(max_length=200, blank=False)
+    back = models.CharField(max_length=300, blank=False)
+    id_topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    slug_topic = models.SlugField(default="", null=False)
+    slug_flashcard = models.SlugField(default="", null=False)
+
+    def __str__(self):
+        return f'{self.front}'
+>>>>>>> create-models

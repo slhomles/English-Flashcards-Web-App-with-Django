@@ -25,11 +25,14 @@
     <h1>Words in {{ topic.name_topic }}</h1>
     <ol class="list-group list-group-numbered">
     {% for word in flashcards_list %}
-     <li class="list-group-item"><a href="{% url 'word_detail' word.id_flashcard %}">{{ word.front }}</a></li> 
+     <li class="list-group-item"><a href="{% url 'word_detail' word.slug_flashcard %}">{{ word.front }}</a></li> 
     {% endfor %}
     </ol>
     <a href="{% url 'topics' %}">Back to Topics</a>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> create-models
     <a href="{% url 'create_flashcard' topic.slug_topic %}">Create a new flashcard</a>
     {% endblock main-content %}
 

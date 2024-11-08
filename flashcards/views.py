@@ -6,14 +6,17 @@ from .forms import TopicForm, FlashcardsForm
 
 # Create your views here.
 def topics(request):
-    topics = Topic.objects.all().values()
-    template = loader.get_template('topics.html')
+    topics = Topic.objects.all()  # Không sử dụng .values() ở đây
     context = {
         'topics': topics,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'topics.html', context)
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> create-models
 def flashcards(request, slug_topic):
     topic = get_object_or_404(Topic, slug_topic=slug_topic)
     flashcards_list = Flashcards.objects.filter(slug_topic=topic)
@@ -32,21 +35,25 @@ def word_detail(request, slug_flashcard):
     return render(request, 'word_detail.html', context)
 
 def create_topic(request):
-  if request.method == 'POST':
-    form = TopicForm(request.POST)
-    if form.is_valid():
-      form.save()
-      return redirect("topics")
-  else:
-    form = TopicForm()
-  return render(request,'forms.html',{'form':form})
+    if request.method == 'POST':
+        form = TopicForm(request.POST, request.FILES)  # Thêm request.FILES để xử lý file upload
+        if form.is_valid():
+            form.save()
+            return redirect("topics")
+    else:
+        form = TopicForm()
+    return render(request, 'forms.html', {'form': form})
 
 def create_flashcard(request,slug_topic):
+<<<<<<< HEAD
     topic = get_object_or_404(Topic, pk=slug_topic)
+=======
+    topic = get_object_or_404(Topic, slug_topic=slug_topic)
+>>>>>>> create-models
     form = FlashcardsForm(request.POST)
     if form.is_valid():
          flashcard = form.save(commit = False)
-         flashcard.id_topic = topic
+         flashcard.slug_topic = topic
          flashcard.save()
          return redirect('flashcards', slug_topic=slug_topic)
     else:
