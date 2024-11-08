@@ -13,6 +13,9 @@
             <div class="flip-card-front">
               <h1>{{ word.front }}</h1>
               <p>More Content In Future</p>
+              <button id="startRecording"><img src="{% static 'images/1.jpg' %}" alt="Nhận diện phát âm" width="50" height="50"></button>
+              <p id="recognitionResult"></p><!-- Hiển thị câu mà hệ thống đã nghe thấy -->
+              <p id="pronunciationResult"></p><!-- Hiển thị kết quả -->
             </div>
             <div class="flip-card-back">
               <h1>Definition: {{ word.back }}</h1>
@@ -21,14 +24,11 @@
           </div>
         </div>
         <div class="text-below">
-          <h2><a href="{% url 'flashcards' word.id_topic.id_topic %}">Back to words</a></h2>
+          <h2><a href="{% url 'flashcards' word.id_topic.id_topic %}"><img src="{% static 'images/Back_Arrow.png' %}" alt="Back To Words" width="100" height="50"></a></h2>
         </div>
       </div>
-      <script>
-        document.getElementById('flipCard').addEventListener('click', function() {
-          this.classList.toggle('show-back');
-        });
-      </script>    
+      <script src="{% static 'js/flip_card.js' %}"></script>
+      <script src="{% static 'js/speechandsent.js' %}"></script>
    {% endblock %}
 
 </html>
