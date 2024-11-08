@@ -4,7 +4,6 @@ const pronunciationResult = document.getElementById('pronunciationResult');
 let mediaRecorder;
 let audioChunks = [];
 
-// Ngăn sự kiện lật thẻ khi nhấn nút "Start Recording"
 recordButton.addEventListener('click', (event) => {
     event.stopPropagation(); // Ngăn không cho sự kiện click lan đến thẻ lật
     
@@ -35,12 +34,19 @@ recordButton.addEventListener('click', (event) => {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.correct) {
-                        pronunciationResult.textContent = "Correct";
-                        pronunciationResult.style.color = "green";
+                    if (data.status === 'success') {
+                        // Hiển thị từ mà hệ thống đã nhận diện được
+                        recognitionResult.textContent = `Bạn đã nói: ${data.transcript}`;
+                        
+                        if (data.correct) {
+                            pronunciationResult.textContent = "Correct";
+                            pronunciationResult.style.color = "green";
+                        } else {
+                            pronunciationResult.textContent = "Try Again - Phát âm chưa đúng.";
+                            pronunciationResult.style.color = "red";
+                        }
                     } else {
-                        pronunciationResult.textContent = "Try Again - Phát âm chưa đúng.";
-                        pronunciationResult.style.color = "red";
+                        recognitionResult.textContent = `Lỗi: ${data.error}`;
                     }
                 })
                 .catch(error => {
