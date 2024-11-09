@@ -1,5 +1,5 @@
 /* Container styling for centered grid layout */
-.container {
+.topic-container {
     display: flex;
     justify-content: center;
     padding: 20px;
@@ -7,7 +7,7 @@
 
 .row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Giảm kích thước tối thiểu */
     gap: 20px;
     width: 100%;
     max-width: 1200px;
@@ -86,15 +86,13 @@ h4 {
 
 /* Điều chỉnh kích thước và căn giữa của ô từ */
 .word-card {
-    width: 100%;
-    /* Chiều rộng tự điều chỉnh theo max-width của danh sách */
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     text-align: center;
-    /* Căn giữa chữ trong ô từ */
+    width: 100%; /* Đảm bảo mỗi thẻ từ chiếm toàn bộ chiều rộng cột */
 }
 
 /*Màu của từ */
@@ -106,4 +104,28 @@ h4 {
 .word-title a:hover {
     color: #007bff;
     /* Màu khi hover vào từ */
+}
+/* Nút luyện tập */
+.practice-button {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0; /* Khoảng cách với tiêu đề và danh sách từ */
+}
+
+.btn-practice {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background-color: #e6f0ff;
+    color: #333;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-practice:hover {
+    background-color: #007bff;
+    color: #fff;
 }

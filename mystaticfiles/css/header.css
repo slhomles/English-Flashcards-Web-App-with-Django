@@ -1,0 +1,74 @@
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0; /* Tăng padding để header đầy đủ hơn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Đảm bảo header chiếm toàn bộ chiều ngang */
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links a {
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #007bff;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-bar input {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: width 0.3s;
+    width: 150px;
+    color: #333;
+}
+
+.search-bar input:focus {
+    width: 150px;
+    border-color: #007bff;
+}
+
+.search-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.search-btn i {
+    font-size: 1.2em;
+}
