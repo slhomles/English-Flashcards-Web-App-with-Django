@@ -11,14 +11,17 @@
     <!-- Hiển thị tổng số từ -->
     <h4>Chủ đề {{ topic.name_topic }} có {{ flashcards_list|length }} từ</h4>
 
-    <div class="word-list">
-        {% for word in flashcards_list %}
-        <div class="word-card list-group-item">
-            <div class="word-content">
-                <h5 class="word-title"><a href="{% url 'word_detail' word.id_flashcard %}">{{ word.front }}</a></h5>
+    <div class="container text-center">
+        <div class="row">
+            {% for word in flashcards_list %}
+            <div class="col">
+                <div class="card word-card">
+                    <div class="card-body">
+                        <a href="{% url 'word_detail' word.id_flashcard %}" class="word-title">{{ word.front }}</a>
+                    </div>
+                </div>
             </div>
-
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 {% endblock %}

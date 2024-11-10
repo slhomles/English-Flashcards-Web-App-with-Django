@@ -1,34 +1,39 @@
 {% extends 'master.html' %}
 {% load static %}
 
-{% block title %}Flip Card on Click{% endblock %}
+{% block title %}Flashcard Detail{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/word_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/word-detail.css' %}">
 {% endblock %}
-    {% block content %}
-    <div class="flip-card-container">
-        <div class="flip-card" id="flipCard">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <h1 id="correctWord" data-word = "{{word.front}}">{{ word.front }}</h1>
-              <p>More Content In Future</p>
-              <button id="startRecognition"><img src="{% static 'images/1.jpg' %}" alt="Nhận diện phát âm" width="50" height="50"></button>
-              <p id="recognitionResult"></p><!-- Hiển thị câu mà hệ thống đã nghe thấy -->
-              <p id="pronunciationResult"></p><!-- Hiển thị kết quả -->
-            </div>
-            <div class="flip-card-back">
-              <h1>Definition: {{ word.back }}</h1>
-              <p>More content In Future</p>
-            </div>
-          </div>
-        </div>
-        <div class="text-below">
-          <h2><a href="{% url 'flashcards' word.id_topic.id_topic %}"><img src="{% static 'images/Back_Arrow.png' %}" alt="Back To Words" width="100" height="50"></a></h2>
-        </div>
-      </div>
-      <script src="{% static 'js/flip_card.js' %}"></script>
-      <script src="{% static 'js/speech.js' %}"></script>
-   {% endblock %}
 
-</html>
+{% block content %}
+<div class="flashcard-container">
+    <div class="flip-card" onclick="toggleFlip(this)">
+        <div class="flip-card-inner">
+            <!-- Mặt trước của từ -->
+            <div class="flip-card-front">
+                <p class="word-front" id="correctWord" data-word = "{{word.front}}">{{ word.front }}</p>
+                <button id="startRecording" class="mic-button">
+                    <img src="{% static 'images/mic-button.png' %}" alt="Nhận diện phát âm" width="30" height="30">
+                </button>
+                <p id="recognitionResult"></p><!-- Hiển thị câu mà hệ thống đã nghe thấy -->
+                <p id="pronunciationResult"></p><!-- Hiển thị kết quả -->
+                <p class="flip-instruction">Click để lật xem nghĩa</p>
+                <div class="return-button" title="Trở về Topic">
+                    <a href="{% url 'flashcards' word.id_topic.id_topic %}">
+                        <img src="{% static 'images/return-button.png' %}" alt="Back To Topic" width="30" height="30">
+                    </a>
+                </div>
+            </div>
+            <!-- Mặt sau của từ -->
+            <div class="flip-card-back">
+                <p class="word-back">{{ word.back }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/flip_card.js' %}"></script>
+<script src="{% static 'js/speechandsent.js' %}"></script>
+{% endblock %}
