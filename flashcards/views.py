@@ -95,3 +95,6 @@ def quiz_view(request):
     return render(request, 'quiz.html', {
        'questions_json': json.dumps(questions, cls=DjangoJSONEncoder)
     })
+
+def hangman_game(request):
+    return render(request, 'hangman.html')
