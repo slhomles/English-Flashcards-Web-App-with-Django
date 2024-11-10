@@ -11,9 +11,9 @@
         <div class="flip-card" id="flipCard">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <h1>{{ word.front }}</h1>
+              <h1 id="correctWord" data-word = "{{word.front}}">{{ word.front }}</h1>
               <p>More Content In Future</p>
-              <button id="startRecording"><img src="{% static 'images/1.jpg' %}" alt="Nhận diện phát âm" width="50" height="50"></button>
+              <button id="startRecognition"><img src="{% static 'images/1.jpg' %}" alt="Nhận diện phát âm" width="50" height="50"></button>
               <p id="recognitionResult"></p><!-- Hiển thị câu mà hệ thống đã nghe thấy -->
               <p id="pronunciationResult"></p><!-- Hiển thị kết quả -->
             </div>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <script src="{% static 'js/flip_card.js' %}"></script>
-      <script src="{% static 'js/speechandsent.js' %}"></script>
+      <script src="{% static 'js/speech.js' %}"></script>
    {% endblock %}
 
 </html>
