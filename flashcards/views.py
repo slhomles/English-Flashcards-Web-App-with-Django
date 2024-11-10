@@ -13,13 +13,10 @@ def topics(request):
     return render(request, 'topics.html', context)
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> create-models
 def flashcards(request, slug_topic):
     topic = get_object_or_404(Topic, slug_topic=slug_topic)
-    flashcards_list = Flashcards.objects.filter(slug_topic=topic)
+    flashcards_list = Flashcards.objects.filter(id_topic__slug_topic=topic)
     context = {
         'topic': topic,
         'flashcards_list': flashcards_list
@@ -45,11 +42,8 @@ def create_topic(request):
     return render(request, 'forms.html', {'form': form})
 
 def create_flashcard(request,slug_topic):
-<<<<<<< HEAD
     topic = get_object_or_404(Topic, pk=slug_topic)
-=======
     topic = get_object_or_404(Topic, slug_topic=slug_topic)
->>>>>>> create-models
     form = FlashcardsForm(request.POST)
     if form.is_valid():
          flashcard = form.save(commit = False)
