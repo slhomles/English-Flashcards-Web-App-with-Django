@@ -9,5 +9,5 @@ urlpatterns = [
     path('create_flashcard/<int:id_topic>/',views.create_flashcard, name = 'create_flashcard'),
     path('success/',views.success_view,name = 'success'),
     path('topics/quiz/', views.quiz_view, name='quiz'), 
-    path('hangman/', views.hangman_game, name='hangman_game'),
+    path('hangman/', views.hangman_game, name='hangman'),
 ]

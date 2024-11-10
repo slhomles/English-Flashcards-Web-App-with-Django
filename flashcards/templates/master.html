@@ -20,18 +20,17 @@
   <header>
     <nav class="navbar">
         <div class="container">
-            <!-- Logo hoặc tiêu đề -->
-            <a class="navbar-brand" href="{% url 'topics' %}">MyWebsite</a>
+            <a class="navbar-brand" href="{% url 'topics' %}">My Website</a>
 
             <!-- Các mục trong thanh header -->
             <ul class="nav-links">
                 <li><a href="{% url 'topics' %}">Home</a></li>
                 <li><a href="{% url 'create_topic' %}">Create New Topic</a></li>
-                <li><a href="{% url 'quiz' %}">Trắc nghiệm</a></li>
+                <li><a href="{% url 'quiz' %}">Multiple Choice</a></li>
+                <li><a href="{% url 'hangman' %}">Hangman</a></li>
             </ul>
 
             <!-- Thanh tìm kiếm -->
-
             <div class="search-bar">
               <input type="text" placeholder="Search...">
               <button class="search-btn"><i class="search"></i></button>

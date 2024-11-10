@@ -4,22 +4,17 @@
     justify-content: center;
     align-items: center;
     height: calc(100vh - 150px);
-    /* Đảm bảo flashcard được căn giữa theo chiều dọc */
     padding-top: 50px;
-    /* Thêm khoảng cách từ header */
 }
 
 /* CSS cho flip card lớn hơn */
 .flip-card {
     background-color: transparent;
     width: 600px;
-    /* Tăng chiều rộng */
     height: 400px;
-    /* Tăng chiều cao */
     perspective: 1000px;
     cursor: pointer;
     margin: 20px auto;
-    /* Đảm bảo căn giữa trên trang */
 }
 
 .flip-card-inner {
@@ -63,12 +58,10 @@
 .word-front,
 .word-back {
     font-size: 1.5em;
-    /* Tăng kích thước chữ */
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-/* Chữ từ lớn hơn và căn giữa */
 .word-front {
     font-size: 2em;
     font-weight: bold;
@@ -99,7 +92,6 @@
     cursor: pointer;
 }
 
-/* Chữ hướng dẫn ở dưới cùng */
 .flip-instruction {
     font-size: 0.9em;
     color: #666;
