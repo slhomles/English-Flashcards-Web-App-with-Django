@@ -16,7 +16,7 @@ class Topic(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.name_topic}'
+        return f'{self.slug_topic}'
 
 class Flashcards(models.Model):
     id_flashcard = models.AutoField(primary_key= True, null = False)

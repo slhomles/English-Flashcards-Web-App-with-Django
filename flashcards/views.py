@@ -42,12 +42,12 @@ def create_topic(request):
     return render(request, 'forms.html', {'form': form})
 
 def create_flashcard(request,slug_topic):
-    topic = get_object_or_404(Topic, pk=slug_topic)
+    #topic = get_object_or_404(Topic, pk=slug_topic)
     topic = get_object_or_404(Topic, slug_topic=slug_topic)
     form = FlashcardsForm(request.POST)
     if form.is_valid():
          flashcard = form.save(commit = False)
-         flashcard.slug_topic = topic
+         flashcard.id_topic = topic
          flashcard.save()
          return redirect('flashcards', slug_topic=slug_topic)
     else:
