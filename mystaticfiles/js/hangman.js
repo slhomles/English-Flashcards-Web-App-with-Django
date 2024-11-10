@@ -74,6 +74,7 @@ function guessLetter(letter, buttonElement) {
     // Kiểm tra điều kiện thắng
     if (displayWord.replace(/\s+/g, '') === word) {
         document.getElementById("message").style.display = "block";
+        document.getElementById("message").style.color = "rgb(0, 128, 0)"; // Màu xanh lá cây
         document.getElementById("message").textContent = "Congratulations! You've guessed the word!";
     }
 }

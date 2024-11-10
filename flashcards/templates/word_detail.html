@@ -13,12 +13,12 @@
         <div class="flip-card-inner">
             <!-- Mặt trước của từ -->
             <div class="flip-card-front">
-                <p class="word-front" id="correctWord" data-word = "{{word.front}}">{{ word.front }}</p>
+                <p class="word-front">{{ word.front }}</p>
                 <button id="startRecording" class="mic-button">
                     <img src="{% static 'images/mic-button.png' %}" alt="Nhận diện phát âm" width="30" height="30">
                 </button>
-                <p id="recognitionResult"></p><!-- Hiển thị câu mà hệ thống đã nghe thấy -->
-                <p id="pronunciationResult"></p><!-- Hiển thị kết quả -->
+                <p id="recognitionResult"></p>
+                <p id="pronunciationResult"></p>
                 <p class="flip-instruction">Click để lật xem nghĩa</p>
                 <div class="return-button" title="Trở về Topic">
                     <a href="{% url 'flashcards' word.id_topic.id_topic %}">
