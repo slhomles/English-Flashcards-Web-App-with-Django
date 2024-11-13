@@ -3,6 +3,8 @@ from django.template.defaultfilters import default
 from django.utils.text import slugify
 import requests
 
+# pip install google-cloud-texttospeech trước khi chạy
+
 # Tạo các mô hình của bạn ở đây.
 class Topic(models.Model):
     id_topic = models.AutoField(primary_key = True, null = False)
@@ -20,13 +22,16 @@ class Topic(models.Model):
         return f'{self.slug_topic}'
 
 class Flashcards(models.Model):
+    # API của Oxford
     APP_ID = '47f410f8'
-    APP_KEY = '23a4a9cf486e0911da092affc9950027'
-    #APP_KEY = '872f89f5330a2b53e421133556098eb2'
+    #APP_KEY = '23a4a9cf486e0911da092affc9950027'
     #APP_KEY = '80e49be87fe00754fcc59ff73d2a4095'
-    #APP_KEY = '6f4af303716548eb1af2998329cf76b0'
+    APP_KEY = '6f4af303716548eb1af2998329cf76b0'
     #APP_KEY = '36cecd6cac61f7573a32d40d677a778e'
     # Chọn một trong các key trên
+
+    # Merriam-Webster Dictionary API
+    # KEY: "959a4e11-8731-4fbd-bd13-ec72c0a16405"
 
     id_flashcard = models.AutoField(primary_key= True, null = False)
     front = models.CharField(max_length = 200, blank = False)
@@ -34,14 +39,23 @@ class Flashcards(models.Model):
     id_topic = models.ForeignKey(Topic,on_delete = models.CASCADE )
     slug_flashcard = models.SlugField(null=False, blank=True)
     pronunciation = models.URLField(blank=True, null=False)
+    spell = models.CharField(max_length=100, blank=True, null=False)
 
     def save(self, *args, **kwargs):
         if not self.slug_flashcard:  
             self.slug_flashcard = slugify(self.front) 
         if not self.pronunciation:
-            pronunciation_urls = self.get_pronunciation(self.front)
-            if pronunciation_urls:
-                self.pronunciation = pronunciation_urls[0]
+            # sử dụng api của oxford
+            #pronunciation_url = self.get_pronunciation(self.front)
+            # sử dụng api của responsivevoice
+            pronunciation_url = self.speak_word(self.front)
+            if pronunciation_url:
+                self.pronunciation = pronunciation_url
+                # self.pronunciation = pronunciation_url[0] nếu của oxford
+        if not self.spell:
+            spell_word = self.get_spell(self.front)
+            if spell_word:
+                self.spell = spell_word
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -49,27 +63,58 @@ class Flashcards(models.Model):
     
     @staticmethod
     def get_pronunciation(word):
-        url = f'https://od-api-sandbox.oxforddictionaries.com/api/v2/entries/en/{word}'
-        headers = {
-            'app_id': 'APP_ID',
-            'app_key': 'APP_KEY'
-        }
+        url = f"https://od-api-sandbox.oxforddictionaries.com/api/v2/entries/en-gb/{word.lower()}"
 
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers={"app_id": '47f410f8', "app_key": '6f4af303716548eb1af2998329cf76b0'})
         print(f"Response Status Code: {response.status_code}")
 
-        if response.status_code == 200: # Mã trạng thái HTTP 200 nghĩa là yêu cầu được xử lý thành công và trả về kết quả
+        if response.status_code == 200:  # Mã trạng thái HTTP 200 nghĩa là yêu cầu thành công
             data = response.json()
-            # Truy cập vào phần pronunciations
-            pronunciations = []
-            for entry in data.get('results', []): # API của Oxford trả về dữ liệu dưới dạng một chuỗi các kết quả được lưu trữ trong mục 'results'
-                for lexicalEntry in entry.get('lexicalEntries', []): # lexicalEntry: đại diện cho dạng từ (động từ, danh từ, ...)
-                    for pronunciation in lexicalEntry.get('pronunciations', []): # mỗi từ có thể có nhiều cách phát âm, ví dụ: phát âm Anh-Anh, phát âm Anh-Mỹ, ...
-                        if 'audioFile' in pronunciation: # 'audioFile' chứa URL tới file âm thanh của phát âm từ
-                            pronunciations.append(pronunciation['audioFile'])
-            return pronunciations  # Trả về danh sách các file âm thanh phát âm
+            #print("API Response Data:", json.dumps(data, indent=2))
+            
+            pronunciations = []  # Khởi tạo danh sách chứa các file phát âm
+            
+            # Duyệt qua dữ liệu để trích xuất thông tin về phát âm
+            for entry in data.get('results', []):  # Lấy tất cả các kết quả
+                for lexicalEntry in entry.get('lexicalEntries', []):  # Duyệt qua các dạng từ
+                    # Truy cập vào phần entries, nơi chứa thông tin chi tiết
+                    for lex_entry in lexicalEntry.get('entries', []):
+                        for pronunciation in lex_entry.get('pronunciations', []):  # Duyệt qua các phát âm
+                            # Kiểm tra nếu có file âm thanh
+                            if 'audioFile' in pronunciation:
+                                pronunciations.append(pronunciation['audioFile'])  # Thêm URL âm thanh vào danh sách                        
+            return pronunciations
         else:
             return None
+        
+    @staticmethod
+    def get_spell(word):
+        url = f"https://www.dictionaryapi.com/api/v3/references/collegiate/json/{word}?key={"959a4e11-8731-4fbd-bd13-ec72c0a16405"}"
+    
+        response = requests.get(url)
+        print(f"Response Status Code: {response.status_code}")
+
+        if response.status_code == 200:
+            data = response.json()
+            if data:
+                spell = data[0].get('hwi', {}).get('prs', [{}])[0].get('mw', '')   
+                return spell
+            else:
+                print(f"No results found for '{word}'")
+                return None
+        else:
+            print(f"Error: {response.status_code}")
+            return None
+        
+    @staticmethod
+    def speak_word(word):
+        url = f"https://code.responsivevoice.org/getvoice.php?t={word}&tl=en&sv=&vn=&pitch=0.5&rate=0.5&vol=1&key=mMBcmGky"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            return url
+        else:
+            None
 
     def __str__(self):
         return f'{self.front}'
