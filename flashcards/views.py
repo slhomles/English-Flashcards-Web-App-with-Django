@@ -1,22 +1,24 @@
 from .models import Topic, Flashcards
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.shortcuts import render,get_object_or_404,redirect
 from .forms import TopicForm, FlashcardsForm
+import random
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
-# Create your views here.
 def topics(request):
-    topics = Topic.objects.all().values()
-    template = loader.get_template('topics.html')
+    topics = Topic.objects.all()  # Không sử dụng .values() ở đây
     context = {
         'topics': topics,
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'topics.html', context)
+
 
 
 def flashcards(request, slug_topic):
     topic = get_object_or_404(Topic, slug_topic=slug_topic)
-    flashcards_list = Flashcards.objects.filter(slug_topic=topic)
+    flashcards_list = Flashcards.objects.filter(id_topic__slug_topic=topic)
     context = {
         'topic': topic,
         'flashcards_list': flashcards_list
@@ -32,17 +34,18 @@ def word_detail(request, slug_flashcard):
     return render(request, 'word_detail.html', context)
 
 def create_topic(request):
-  if request.method == 'POST':
-    form = TopicForm(request.POST)
-    if form.is_valid():
-      form.save()
-      return redirect("topics")
-  else:
-    form = TopicForm()
-  return render(request,'forms.html',{'form':form})
+    if request.method == 'POST':
+        form = TopicForm(request.POST, request.FILES)  # Thêm request.FILES để xử lý file upload
+        if form.is_valid():
+            form.save()
+            return redirect("topics")
+    else:
+        form = TopicForm()
+    return render(request, 'forms.html', {'form': form})
 
 def create_flashcard(request,slug_topic):
-    topic = get_object_or_404(Topic, pk=slug_topic)
+    #topic = get_object_or_404(Topic, pk=slug_topic)
+    topic = get_object_or_404(Topic, slug_topic=slug_topic)
     form = FlashcardsForm(request.POST)
     if form.is_valid():
          flashcard = form.save(commit = False)
@@ -56,3 +59,43 @@ def create_flashcard(request,slug_topic):
 
 def success_view(request):
   return render(request,'success.html')
+
+def quiz_view(request):
+    flashcards = list(Flashcards.objects.all())
+    random.shuffle(flashcards)
+    questions = []
+    
+    for i in range(10):
+        show = random.choice([True, False])
+        if show:
+            options = [flashcards[i].back]
+            while len(options) < 4:
+                random_flashcard = random.choice(flashcards)
+                if random_flashcard.back not in options:
+                    options.append(random_flashcard.back)
+            random.shuffle(options)
+            question = {
+                "question": flashcards[i].front,
+                "options": options,
+                "correct_answer": flashcards[i].back
+            }
+        else:
+            options = [flashcards[i].front]
+            while len(options) < 4:
+                random_flashcard = random.choice(flashcards)
+                if random_flashcard.front not in options:
+                    options.append(random_flashcard.front)
+            random.shuffle(options)
+            question = {
+                "question": flashcards[i].back,
+                "options": options,
+                "correct_answer": flashcards[i].front
+            }
+        questions.append(question)
+
+    return render(request, 'quiz.html', {
+       'questions_json': json.dumps(questions, cls=DjangoJSONEncoder)
+    })
+
+def hangman_game(request):
+    return render(request, 'hangman.html')

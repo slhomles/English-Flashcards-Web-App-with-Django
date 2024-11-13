@@ -3,21 +3,13 @@ from django.template.defaultfilters import default
 from django.utils.text import slugify
 import requests
 
-# Create your models here.
-
-APP_ID = '47f410f8'
-APP_KEY = '23a4a9cf486e0911da092affc9950027'
-#APP_KEY = '872f89f5330a2b53e421133556098eb2'
-#APP_KEY = '80e49be87fe00754fcc59ff73d2a4095'
-#APP_KEY = '6f4af303716548eb1af2998329cf76b0'
-#APP_KEY = '36cecd6cac61f7573a32d40d677a778e'
-# Chọn một trong các key trên
-
+# Tạo các mô hình của bạn ở đây.
 class Topic(models.Model):
     id_topic = models.AutoField(primary_key = True, null = False)
     name_topic = models.CharField(max_length = 50, blank = False)
-    type_topic = models.CharField(default="", max_length = 50, blank = False)
-    slug_topic = models.SlugField(default = "", null = False)
+    type_topic = models.CharField(max_length = 50, blank = False)
+    slug_topic = models.SlugField(null=False, blank=True)
+    image_topic = models.ImageField(upload_to='images/', max_length=100, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug_topic:  
@@ -25,15 +17,23 @@ class Topic(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.name_topic}'
+        return f'{self.slug_topic}'
 
 class Flashcards(models.Model):
+    APP_ID = '47f410f8'
+    APP_KEY = '23a4a9cf486e0911da092affc9950027'
+    #APP_KEY = '872f89f5330a2b53e421133556098eb2'
+    #APP_KEY = '80e49be87fe00754fcc59ff73d2a4095'
+    #APP_KEY = '6f4af303716548eb1af2998329cf76b0'
+    #APP_KEY = '36cecd6cac61f7573a32d40d677a778e'
+    # Chọn một trong các key trên
+
     id_flashcard = models.AutoField(primary_key= True, null = False)
     front = models.CharField(max_length = 200, blank = False)
     back = models.CharField(max_length = 300, blank = False)
     id_topic = models.ForeignKey(Topic,on_delete = models.CASCADE )
-    slug_flashcard = models.SlugField(null = False)
-    pronunciation = models.URLField(blank=False, null=False)
+    slug_flashcard = models.SlugField(null=False, blank=True)
+    pronunciation = models.URLField(blank=True, null=False)
 
     def save(self, *args, **kwargs):
         if not self.slug_flashcard:  
@@ -49,13 +49,14 @@ class Flashcards(models.Model):
     
     @staticmethod
     def get_pronunciation(word):
-        url = f'https://od-api-sandbox.oxforddictionaries.com/api/v2/{word.lower()}'
+        url = f'https://od-api-sandbox.oxforddictionaries.com/api/v2/entries/en/{word}'
         headers = {
-            'app_id': APP_ID,
-            'app_key': APP_KEY
+            'app_id': 'APP_ID',
+            'app_key': 'APP_KEY'
         }
 
         response = requests.get(url, headers=headers)
+        print(f"Response Status Code: {response.status_code}")
 
         if response.status_code == 200: # Mã trạng thái HTTP 200 nghĩa là yêu cầu được xử lý thành công và trả về kết quả
             data = response.json()
@@ -69,11 +70,14 @@ class Flashcards(models.Model):
             return pronunciations  # Trả về danh sách các file âm thanh phát âm
         else:
             return None
-        
+
+    def __str__(self):
+        return f'{self.front}'
+    
 class User(models.Model):
     id_user = models.AutoField(primary_key= True, null=False)
     username = models.CharField(max_length=200, blank=False)
-    slug_user = models.SlugField(null=False)
+    slug_user = models.SlugField(null=False, blank=True)
 
     def __str__(self):
         return f'{self.username}'
@@ -88,7 +92,7 @@ class Study(models.Model):
     start_time = models.DateTimeField(null=False)
     end_time = models.DateTimeField(null=False)
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)
-    slug_study = models.SlugField(null=False)
+    slug_study = models.SlugField(null=False, blank=True)
 
     def __str__(self):
         return f'{self.id_study}'
@@ -97,3 +101,4 @@ class Study(models.Model):
         if not self.slug_study:  
             self.slug_study = slugify(f"{self.id_study}_{self.id_user.username}")
         super().save(*args, **kwargs)
+    

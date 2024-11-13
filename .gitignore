@@ -1,0 +1,4 @@
+*.pyc
+db.sqlite3
+*.pyc
+settings.cpython-313.pyc
