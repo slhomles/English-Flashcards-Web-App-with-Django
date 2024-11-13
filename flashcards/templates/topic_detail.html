@@ -1,25 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'master.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ topic.name }} - Words</title>
-</head>
+{% block title %}{{ topic.name }} Words{% endblock %}
 
-<body>
-    {% block main-content %}
-    <h1>Words in {{ topic.name_topic }}</h1>
-    <ol class="list-group list-group-numbered">
-    {% for word in flashcards_list %}
-     <li class="list-group-item"><a href="{% url 'word_detail' word.slug_flashcard %}">{{ word.front }}</a></li> 
-    {% endfor %}
-    </ol>
-    <a href="{% url 'topics' %}">Back to Topics</a>
-    <a href="{% url 'create_flashcard' topic.slug_topic %}">Create a new flashcard</a>
-    {% endblock main-content %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/Topics.css' %}">
+{% endblock %}
 
-</body>
+{% block content %}
+    <!-- Hiển thị tổng số từ -->
+    <h4>Chủ đề {{ topic.name_topic }} có {{ flashcards_list|length }} từ</h4>
 
-</html>
-
+    <div class="container text-center">
+        <div class="row">
+            {% for word in flashcards_list %}
+            <div class="col">
+                <div class="card word-card">
+                    <div class="card-body">
+                        <a href="{% url 'word_detail' word.slug_flashcard %}" class="word-title">{{ word.front }}</a>
+                    </div>            
+                </div>
+            </div>
+            {% endfor %}
+            <button onclick="window.location.href='/add-new-word/'" class="add-word-btn"><img src = "{% static 'images/plus-button.png' %}" alt = "Thêm từ mới"></button>
+        </div>
+    </div>
+{% endblock %}

@@ -1,10 +1,12 @@
 from .models import Topic, Flashcards
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.shortcuts import render,get_object_or_404,redirect
 from .forms import TopicForm, FlashcardsForm
+import random
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
-# Create your views here.
 def topics(request):
     topics = Topic.objects.all()  # Không sử dụng .values() ở đây
     context = {
@@ -57,3 +59,43 @@ def create_flashcard(request,slug_topic):
 
 def success_view(request):
   return render(request,'success.html')
+
+def quiz_view(request):
+    flashcards = list(Flashcards.objects.all())
+    random.shuffle(flashcards)
+    questions = []
+    
+    for i in range(10):
+        show = random.choice([True, False])
+        if show:
+            options = [flashcards[i].back]
+            while len(options) < 4:
+                random_flashcard = random.choice(flashcards)
+                if random_flashcard.back not in options:
+                    options.append(random_flashcard.back)
+            random.shuffle(options)
+            question = {
+                "question": flashcards[i].front,
+                "options": options,
+                "correct_answer": flashcards[i].back
+            }
+        else:
+            options = [flashcards[i].front]
+            while len(options) < 4:
+                random_flashcard = random.choice(flashcards)
+                if random_flashcard.front not in options:
+                    options.append(random_flashcard.front)
+            random.shuffle(options)
+            question = {
+                "question": flashcards[i].back,
+                "options": options,
+                "correct_answer": flashcards[i].front
+            }
+        questions.append(question)
+
+    return render(request, 'quiz.html', {
+       'questions_json': json.dumps(questions, cls=DjangoJSONEncoder)
+    })
+
+def hangman_game(request):
+    return render(request, 'hangman.html')
