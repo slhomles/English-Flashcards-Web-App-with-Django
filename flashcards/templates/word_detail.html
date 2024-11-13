@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +9,15 @@
 </head>
 <body>
     {% block main-content %}
+    {% if flashcard.pronunciation %}
+        <h3>Phát âm</h3>
+        <audio controls>
+            <source src="{{ flashcard.pronunciation }}" type="audio/mpeg">
+            Trình duyệt của bạn không hỗ trợ thẻ audio.
+        </audio>
+    {% else %}
+        <p>Không có phát âm cho từ này.</p>
+    {% endif %}
     <div class="flip-card" id="flipCard">
         <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -23,7 +31,7 @@
         </div>
     </div>
     <div class="text-below">
-        <h2><a href="{% url 'flashcards' word.id_topic.id_topic %}">Back to words</a></h2>
+        <h2><a href="{% url 'flashcards' word.id_topic %}">Back to words</a></h2>
     </div>
     <script>
         document.getElementById('flipCard').addEventListener('click', function() {
@@ -33,39 +41,3 @@
    {% endblock main-content %}
 </body>
 </html>
-=======
-{% extends 'master.html' %}
-{% load static %}
-
-{% block title %}Flip Card on Click{% endblock %}
-
-{% block head %}
-<link rel="stylesheet" href="{% static 'css/word_detail.css' %}">
-{% endblock %}
-    {% block content %}
-    <div class="flip-card-container">
-        <div class="flip-card" id="flipCard">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <h1>{{ word.front }}</h1>
-              <p>More Content In Future</p>
-            </div>
-            <div class="flip-card-back">
-              <h1>Definition: {{ word.back }}</h1>
-              <p>More content In Future</p>
-            </div>
-          </div>
-        </div>
-        <div class="text-below">
-          <h2><a href="{% url 'flashcards' word.slug_topic.slug_topic %}">Back to words</a></h2>
-        </div>
-      </div>
-      <script>
-        document.getElementById('flipCard').addEventListener('click', function() {
-          this.classList.toggle('show-back');
-        });
-      </script>    
-   {% endblock %}
-
-</html>
->>>>>>> database
