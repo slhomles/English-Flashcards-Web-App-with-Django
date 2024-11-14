@@ -9,15 +9,6 @@
 </head>
 <body>
     {% block main-content %}
-    {% if flashcard.pronunciation %}
-        <h3>Phát âm</h3>
-        <audio controls>
-            <source src="{{ word.pronunciation }}" type="audio/mpeg">
-            Trình duyệt của bạn không hỗ trợ thẻ audio.
-        </audio>
-    {% else %}
-        <p>Không có phát âm cho từ này.</p>
-    {% endif %}
     <div class="flip-card" id="flipCard">
         <div class="flip-card-inner">
             <div class="flip-card-front">
