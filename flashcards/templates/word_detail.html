@@ -1,34 +1,39 @@
+{% extends 'master.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip Card on Click</title>
-    <link rel="stylesheet" href="{% static 'word_detail.css' %}">
-</head>
-<body>
-    {% block main-content %}
-    <div class="flip-card" id="flipCard">
+
+{% block title %}Flashcard Detail{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/word-detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="flashcard-container">
+    <div class="flip-card" onclick="toggleFlip(this)">
         <div class="flip-card-inner">
+            <!-- Mặt trước của từ -->
             <div class="flip-card-front">
-                <h1>{{ word.front }}</h1>
-                <p>More Content In Future</p>
+                <p class="word-front">{{ word.front }}</p>
+                <button id="startRecording" class="mic-button">
+                    <img src="{% static 'images/mic-button.png' %}" alt="Nhận diện phát âm" width="30" height="30">
+                </button>
+                <p id="recognitionResult"></p>
+                <p id="pronunciationResult"></p>
+                <p class="flip-instruction">Click để lật xem nghĩa</p>
+                <div class="return-button" title="Trở về Topic">
+                    <a href="{% url 'flashcards' word.id_topic.slug_topic %}">
+                        <img src="{% static 'images/return-button.png' %}" alt="Back To Topic" width="30" height="30">
+                    </a>
+                </div>
             </div>
+            <!-- Mặt sau của từ -->
             <div class="flip-card-back">
-                <h1>Definition: {{ word.back }}</h1>
-                <p>More content In Future</p>
+                <p class="word-back">{{ word.back }}</p>
             </div>
         </div>
     </div>
-    <div class="text-below">
-        <h2><a href="{% url 'flashcards' word.id_topic %}">Back to words</a></h2>
-    </div>
-    <script>
-        document.getElementById('flipCard').addEventListener('click', function() {
-            this.classList.toggle('show-back');
-        });
-    </script>
-   {% endblock main-content %}
-</body>
-</html>
+</div>
+
+<script src="{% static 'js/flip_card.js' %}"></script>
+<script src="{% static 'js/speechandsent.js' %}"></script>
+{% endblock %}

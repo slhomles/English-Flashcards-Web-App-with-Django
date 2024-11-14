@@ -13,7 +13,7 @@
 }
 
 /* Card styling */
-.card, .word-card {
+.card, .word-card, .add-word-btn {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@
     text-align: center;
 }
 
-.card:hover, .btn-practice:hover {
+.card:hover, .btn-practice:hover, .add-word-btn:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
@@ -34,7 +34,13 @@
     align-items: center;
     text-align: center;
 }
-
+.add-word-btn img{
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+    margin: 10px 0;
+    text-decoration: none;
+}
 .card-body a, .word-title a {
     font-size: 1.2em;
     color: #333;
@@ -46,7 +52,9 @@
 .card-body a:hover, .word-title a:hover {
     color: #007bff;
 }
-
+.add-word-button img {
+    object-fit: contain; 
+}
 .card-info, .btn-practice {
     font-size: 0.9em;
     color: #666;
