@@ -22,7 +22,7 @@
                 </div>
             </div>
             {% endfor %}
-            <button onclick="window.location.href='/add-new-word/'" class="add-word-btn"><img src = "{% static 'images/plus-button.png' %}" alt = "Thêm từ mới"></button>
+            <button onclick="window.location.href='{% url 'create_flashcard' topic.slug_topic %}'" class="add-word-btn"><img src = "{% static 'images/plus-button.png' %}" alt = "Thêm từ mới"></button>
         </div>
     </div>
 {% endblock %}

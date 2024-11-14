@@ -2,7 +2,6 @@
 
 from django.db import migrations
 
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -10,9 +9,23 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='flashcards',
-            old_name='slug_flashcards',
-            new_name='slug_flashcard',
+        migrations.RunSQL(
+            """
+            PRAGMA foreign_keys=off;
+            CREATE TABLE flashcards_flashcards_new AS SELECT * FROM flashcards_flashcards;
+            ALTER TABLE flashcards_flashcards RENAME TO flashcards_flashcards_old;
+            ALTER TABLE flashcards_flashcards_new RENAME TO flashcards_flashcards;
+            DROP TABLE flashcards_flashcards_old;
+            PRAGMA foreign_keys=on;
+            """,
+            reverse_sql="""
+            PRAGMA foreign_keys=off;
+            CREATE TABLE flashcards_flashcards_old AS SELECT * FROM flashcards_flashcards;
+            ALTER TABLE flashcards_flashcards RENAME TO flashcards_flashcards_new;
+            ALTER TABLE flashcards_flashcards_old RENAME TO flashcards_flashcards;
+            DROP TABLE flashcards_flashcards_new;
+            PRAGMA foreign_keys=on;
+            """
         ),
     ]
+
