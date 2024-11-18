@@ -13,10 +13,19 @@
     <div class="hangman-figure">
         <img id="hangman-image" src="{% static 'images/hangman0.jpg' %}" alt="Hangman">
     </div>
-    
+    <input type="hidden" id="hangmanWord" value="{{ hangman_word }}">
     <!-- Khu vực hiển thị từ cần đoán -->
     <div class="word-display">
-        <span id="word-display">_ _ _ _ _</span>
+        <!-- Tạo chuỗi các dấu gạch ngang dựa trên số lượng chữ cái -->
+        <span id="word-display">
+            {% for letter in hangman_word %}
+                {% if letter != ' ' %}
+                    _
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            {% endfor %}
+        </span>
     </div>
     
     <!-- Các nút chữ cái -->
@@ -27,8 +36,13 @@
     </div>
     
     <!-- Thông báo khi thua -->
-    <div id="message" style="display: none; color: rgb(221, 10, 21);">You lose! The correct word was <span id="correct-word"></span>.</div>
+    <div id="message" style="display: none; color: rgb(221, 10, 21);">You lose! The correct word was <span id="correct-word">{{hangman_word}}</span>.</div>
 </div>
+<!-- Nút "Try Again" -->
+<div id="try-again-container" style="display: none; margin-top: 20px;">
+    <button id="try-again-button" onclick="reloadPage()">Try Again</button>
+</div>
+
 
 <script src="{% static 'js/hangman.js' %}"></script>
 {% endblock %}

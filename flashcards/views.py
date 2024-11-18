@@ -98,4 +98,13 @@ def quiz_view(request):
     })
 
 def hangman_game(request):
-    return render(request, 'hangman.html')
+    flashcards = Flashcards.objects.all()
+    if flashcards:
+        random_flashcard = random.choice(flashcards)
+        hangman_word = random_flashcard.front
+    else:
+        hangman_word = ""
+    context = {
+        "hangman_word": hangman_word.upper(),
+    }
+    return render(request, 'hangman.html', context)
