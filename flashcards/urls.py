@@ -12,4 +12,6 @@ urlpatterns = [
     path('success/',views.success_view,name = 'success'),
     path('topics/quiz/', views.quiz_view, name='quiz'), 
     path('hangman/', views.hangman_game, name='hangman'),
+    path('delete_topic/<int:id_topic>/', views.delete_topic, name='delete_topic'),
+    path('delete_flashcard/<int:id_flashcard>/', views.delete_flashcard, name='delete_flashcard'),
 ]

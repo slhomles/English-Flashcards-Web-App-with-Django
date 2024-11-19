@@ -108,3 +108,15 @@ def hangman_game(request):
         "hangman_word": hangman_word.upper(),
     }
     return render(request, 'hangman.html', context)
+
+def delete_topic(request, id_topic):
+    topic = get_object_or_404(Topic, id_topic=id_topic)
+    topic.delete()
+    
+    return redirect('topics')
+
+def delete_flashcard(request, id_flashcard):
+    flashcard = get_object_or_404(Flashcards, id_flashcard=id_flashcard)
+    flashcard.delete()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
