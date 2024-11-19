@@ -120,3 +120,18 @@ def delete_flashcard(request, id_flashcard):
     flashcard.delete()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+from django.shortcuts import render, redirect
+from .forms import RegistrationForm
+from django.contrib import messages
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()  # Lưu người dùng vào database
+            messages.success(request, 'Tài khoản của bạn đã được tạo thành công!')
+            return redirect('topics')  # Điều hướng đến trang đăng nhập hoặc trang khác
+    else:
+        form = RegistrationForm()
+    return render(request, 'register.html', {'form': form})

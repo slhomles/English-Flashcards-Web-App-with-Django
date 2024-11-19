@@ -1,7 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import default
 from django.utils.text import slugify
-import requests
+from django.contrib.auth.models import User
 
 # pip install google-cloud-texttospeech trước khi chạy
 
@@ -118,20 +118,6 @@ class Flashcards(models.Model):
 
     def __str__(self):
         return f'{self.front}'
-    
-class User(models.Model):
-    id_user = models.AutoField(primary_key= True, null=False)
-    username = models.CharField(max_length=200, blank=False)
-    slug_user = models.SlugField(null=False, blank=True)
-
-    def __str__(self):
-        return f'{self.username}'
-    
-    def save(self, *args, **kwargs):
-        if not self.slug_user:  
-            self.slug_user = slugify(self.username) 
-        super().save(*args, **kwargs)
-
 class Study(models.Model):
     id_study = models.AutoField(primary_key=True, null=False)
     start_time = models.DateTimeField(null=False)
