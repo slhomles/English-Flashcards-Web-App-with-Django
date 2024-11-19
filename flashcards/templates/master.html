@@ -20,7 +20,7 @@
   <header>
     <nav class="navbar">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'topics' %}">My Website</a>
+            <a class="navbar-brand" href="{% url 'topics' %}">FLASHCARD</a>
 
             <!-- Các mục trong thanh header -->
             <ul class="nav-links">
@@ -30,11 +30,11 @@
                 <li><a href="{% url 'hangman' %}">Hangman</a></li>
             </ul>
 
-            <!-- Thanh tìm kiếm -->
+            {% comment %} <!-- Thanh tìm kiếm -->
             <div class="search-bar">
               <input type="text" placeholder="Search...">
               <button class="search-btn"><i class="search"></i></button>
-          </div>
+          </div> {% endcomment %}
         </div>
     </nav>
 </header>

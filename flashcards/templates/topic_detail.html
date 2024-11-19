@@ -15,11 +15,14 @@
         <div class="row">
             {% for word in flashcards_list %}
                 <div class="card word-card">
-                    <div class="card-body">
-                        <a href="{% url 'word_detail' word.slug_flashcard %}" class="word-title">{{ word.front }}</a>
-                        <button class="btn btn-danger" onclick="openDeleteDialog('{{ word.id_flashcard }}');">Delete</button>
-                    </div>            
+                    <a href="{% url 'word_detail' word.slug_flashcard %}" class="card-link"> <!-- Bọc toàn bộ card trong <a> -->
+                        <div class="card-body">
+                            <span class="word-title">{{ word.front }}</span>
+                        </div>
+                    </a>
+                    <button class="btn btn-danger" onclick="openDeleteDialog('{{ word.id_flashcard }}');">Delete</button>
                 </div>
+
                 <div id="customModal-{{ word.id_flashcard }}" class="modal">
                     <div class="modal-content">
                         <h2>Confirm Delete</h2>
@@ -29,6 +32,7 @@
                     </div>
                 </div>
             {% endfor %}
+
             <button onclick="window.location.href='{% url 'create_flashcard' topic.slug_topic %}'" class="add-word-btn"><img src = "{% static 'images/plus-button.png'%}" alt = "Thêm từ mới" width="40" height="40"></button>
             <script>
                 function openDeleteDialog(id_flashcard) {

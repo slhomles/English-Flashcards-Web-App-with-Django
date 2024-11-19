@@ -1,6 +1,6 @@
 .navbar {
     background-color: #333;
-    color: #fff;
+    color: #FDE7BB;
     padding: 10px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -17,7 +17,7 @@
 
 .navbar-brand {
     font-size: 1.5em;
-    color: #fff;
+    color: #FAB12F;
     text-decoration: none;
     font-weight: bold;
 }
@@ -30,7 +30,7 @@
 
 .nav-links a {
     font-size: 1.1em;
-    color: #fff;
+    color: #FDE7BB;
     text-decoration: none;
     padding: 8px 15px;
     border-radius: 4px;
@@ -38,37 +38,5 @@
 }
 
 .nav-links a:hover {
-    background-color: #007bff;
-}
-
-.search-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.search-bar input {
-    padding: 5px 10px;
-    border-radius: 20px;
-    border: 1px solid #ddd;
-    outline: none;
-    transition: width 0.3s;
-    width: 150px;
-    color: #333;
-}
-
-.search-bar input:focus {
-    width: 150px;
-    border-color: #007bff;
-}
-
-.search-btn {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-}
-
-.search-btn i {
-    font-size: 1.2em;
+    background-color: #FAB12F;
 }

@@ -1,129 +1,121 @@
-<!DOCTYPE html>
-<html lang="vi">
-    {% load static %}
+{% extends 'master.html' %}
+{% load static %}
+{% block title %}Ôn tập từ vựng{% endblock %}
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Ôn tập từ vựng </title>
-        <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
-        <script>
-            const questions = JSON.parse('{{ questions_json|safe }}');
-            let currentQuestionIndex = 0;
-            let scoreCorrect = 0;
-            let scoreWrong = 0;
-            document.addEventListener("DOMContentLoaded", function() {
-                startQuiz(); // Gọi startQuiz sau khi DOM đã tải xong
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+    <script>
+        const questions = JSON.parse('{{ questions_json|safe }}');
+        let currentQuestionIndex = 0;
+        let scoreCorrect = 0;
+        let scoreWrong = 0;
+
+        document.addEventListener("DOMContentLoaded", function() {
+            startQuiz(); // Gọi startQuiz sau khi DOM đã tải xong
+        });
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            scoreCorrect = 0;
+            scoreWrong = 0;
+            showQuestion();
+            document.getElementById("next-btn").style.display = "none";
+            document.getElementById("completion-popup").style.display = "none";
+        }
+
+        function showQuestion() {
+            const questionElement = document.getElementById("question");
+            const answerButtonsElement = document.getElementById("answer-buttons");
+            const currentQuestion = questions[currentQuestionIndex];
+
+            questionElement.innerText = currentQuestion['question'];
+            answerButtonsElement.innerHTML = "";
+
+            currentQuestion['options'].forEach(option => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                button.classList.add("option-btn");
+                button.addEventListener("click", () => selectAnswer(button, option, currentQuestion['correct_answer']));
+                answerButtonsElement.appendChild(button);
             });
-            function startQuiz() {
-                currentQuestionIndex = 0;
-                scoreCorrect = 0;
-                scoreWrong = 0;
-                showQuestion();
-                document.getElementById("next-btn").style.display = "none";
-                document.getElementById("completion-popup").style.display = "none";
+        }
+
+        function selectAnswer(button, selected, correctAnswer) {
+            const answerButtons = document.querySelectorAll('.option-btn');
+            if (selected === correctAnswer) {
+                button.classList.add("correct");
+                scoreCorrect++;
+            } else {
+                button.classList.add("incorrect");
+                scoreWrong++;
+                const correctButton = Array.from(answerButtons).find(btn => btn.innerText === correctAnswer);
+                if (correctButton) correctButton.classList.add("correct");
             }
-    
-            function showQuestion() {
-                const questionElement = document.getElementById("question");
-                const answerButtonsElement = document.getElementById("answer-buttons");
-                const currentQuestion = questions[currentQuestionIndex];
-            
-                questionElement.innerText = currentQuestion['question'];
-                answerButtonsElement.innerHTML = "";
-                
-                currentQuestion['options'].forEach(option => {
-                    const button = document.createElement("button");
-                    button.innerText = option;
-                    button.classList.add("option-btn");
-                    button.addEventListener("click", () => selectAnswer(button, option, currentQuestion['correct_answer']));
-                    answerButtonsElement.appendChild(button);
+
+            answerButtons.forEach(btn => btn.disabled = true);
+            updateScore();
+            document.getElementById("next-btn").style.display = "block";
+        }
+
+        function updateScore() {
+            document.getElementById("score-board").innerText = `Đúng: ${scoreCorrect} | Sai: ${scoreWrong}`;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const nextBtn = document.getElementById("next-btn");
+            if (nextBtn) { 
+                nextBtn.addEventListener("click", () => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        showQuestion();
+                        nextBtn.style.display = "none";
+                    } else showCompletionPopup();
                 });
-            }
-    
-            function selectAnswer(button, selected, correctAnswer) {
-                const answerButtons = document.querySelectorAll('.option-btn');
-                if (selected === correctAnswer) {
-                    button.classList.add("correct");
-                    scoreCorrect++;
-                } else {
-                    button.classList.add("incorrect");
-                    scoreWrong++;
-                    const correctButton = Array.from(answerButtons).find(btn => btn.innerText === correctAnswer);
-                    if (correctButton) correctButton.classList.add("correct");
-                }
-                
-                answerButtons.forEach(btn => btn.disabled = true);
-                updateScore();
-                document.getElementById("next-btn").style.display = "block";
-            }
-            
-            function updateScore() {
-                document.getElementById("score-board").innerText = `Đúng: ${scoreCorrect} | Sai: ${scoreWrong}`;
-            }
-            
-            document.addEventListener("DOMContentLoaded", function() {
-                const nextBtn = document.getElementById("next-btn");
-                if (nextBtn) { 
-                    nextBtn.addEventListener("click", () => {
-                        currentQuestionIndex++;
-                        console.log(currentQuestionIndex);
-                        console.log(questions.length);
-                        if (currentQuestionIndex < questions.length) {
-                            showQuestion();
-                            nextBtn.style.display = "none";
-                        } else showCompletionPopup();
-                    });
-                }   
-            });
-            
-            function showCompletionPopup() {
-                // Hiển thị popup khi hoàn tất ôn tập
-                const popup = document.getElementById("completion-popup");
-                const finalScoreElement = document.getElementById("final-score");
-                finalScoreElement.innerText = `Bạn trả lời đúng ${scoreCorrect} câu và sai ${scoreWrong} câu.`;
-                popup.style.display = "flex";
-            }
-            
-            function closePopup() {
-                // Ẩn popup và khởi động lại bài ôn tập
-                document.getElementById("completion-popup").style.display = "none";
-                startQuiz();
-            }
-            // Khởi động trang web
+            }   
+        });
+
+        function showCompletionPopup() {
+            const popup = document.getElementById("completion-popup");
+            const finalScoreElement = document.getElementById("final-score");
+            finalScoreElement.innerText = `Bạn trả lời đúng ${scoreCorrect} câu và sai ${scoreWrong} câu.`;
+            popup.style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("completion-popup").style.display = "none";
             startQuiz();
+        }
+
+        // Khởi động trang web
+        startQuiz();
     </script>
-    </head>
+{% endblock %}
 
-    <body>
-        <header class="header">
-            <h1> ÔN TẬP TỪ VỰNG </h1>
-        </header>
-    
-        <div class="quiz-container">
-            <div class="question-section">
-                <h2 id="question-title"> Nghĩa của từ: </h2>
-                <p id="question"></p>
-            </div>
-    
-            <div class="options-container" id="answer-buttons">
-                <!-- Nút đáp án sẽ được JavaScript thêm vào đây -->
-            </div>
-    
-            <button id="next-btn" class="next-btn"> Câu tiếp theo </button>
-            <div id="score-board"> Đúng: 0 | Sai: 0 </div>
-        </div>
-    
-        <!-- Popup thông báo hoàn tất -->
-        <div id="completion-popup" class="completion-popup">
-            <div class="popup-content">
-                <h2> Hoàn tất ôn tập! </h2>
-                <p id="final-score"></p>
-                <button onclick="closePopup()" class="close-popup-btn">
-                    <a href = "http://127.0.0.1:8000/topics/" style="text-decoration: none; color: white;"> Quay về trang chủ </a>
-                </button>
-            </div>
-        </div>
-    </body>
+{% block content %}
+    <h1>Ôn tập từ vựng</h1>
 
-</html>
+    <div class="quiz-container">
+        <div class="question-section">
+            <h2 id="question-title">Nghĩa của từ:</h2>
+            <p id="question"></p>
+        </div>
+
+        <div class="options-container" id="answer-buttons">
+            <!-- Nút đáp án sẽ được JavaScript thêm vào đây -->
+        </div>
+
+        <button id="next-btn" class="next-btn">Câu tiếp theo</button>
+        <div id="score-board">Đúng: 0 | Sai: 0</div>
+    </div>
+
+    <!-- Popup thông báo hoàn tất -->
+    <div id="completion-popup" class="completion-popup">
+        <div class="popup-content">
+            <h2>Hoàn tất ôn tập!</h2>
+            <p id="final-score"></p>
+            <button onclick="closePopup()" class="close-popup-btn">
+                <a href="{% url 'topics' %}" style="text-decoration: none; color: white;">Quay về trang chủ</a>
+            </button>
+        </div>
+    </div>
+{% endblock %}
