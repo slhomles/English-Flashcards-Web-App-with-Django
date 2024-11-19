@@ -15,7 +15,7 @@
         <div class="row">
             {% for word in flashcards_list %}
                 <div class="card word-card">
-                    <a href="{% url 'word_detail' word.slug_flashcard %}" class="card-link"> <!-- Bọc toàn bộ card trong <a> -->
+                    <a href="{% url 'word_detail' word.slug_flashcard %}" class="card-link"> 
                         <div class="card-body">
                             <span class="word-title">{{ word.front }}</span>
                         </div>

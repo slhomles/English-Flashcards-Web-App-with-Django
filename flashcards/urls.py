@@ -14,4 +14,6 @@ urlpatterns = [
     path('hangman/', views.hangman_game, name='hangman'),
     path('delete_topic/<int:id_topic>/', views.delete_topic, name='delete_topic'),
     path('delete_flashcard/<int:id_flashcard>/', views.delete_flashcard, name='delete_flashcard'),
+    path('custom_topic/<int:id_topic>/', views.custom_topic, name='custom_topic'),
+    path('custom_flashcard/<int:id_flashcard>/', views.custom_flashcard, name='custom_flashcard'),
 ]
