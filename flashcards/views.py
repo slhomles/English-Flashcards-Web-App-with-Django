@@ -6,6 +6,7 @@ from .forms import TopicForm, FlashcardsForm
 import random
 from django.core.serializers.json import DjangoJSONEncoder
 import json
+from django.urls import reverse
 
 def topics(request):
     topics = Topic.objects.all()  # Không sử dụng .values() ở đây
@@ -120,3 +121,30 @@ def delete_flashcard(request, id_flashcard):
     flashcard.delete()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def custom_topic(request, id_topic):
+    topic = get_object_or_404(Topic, id_topic=id_topic)  
+    if request.method == 'POST':
+        form = TopicForm(request.POST, request.FILES, instance=topic)  
+        if form.is_valid():
+            form.save()  
+            return redirect('topics')  
+    else:
+        form = TopicForm(instance=topic)  
+    return render(request, 'forms.html', {'form': form})
+
+def custom_flashcard(request, id_flashcard):
+    flashcard = get_object_or_404(Flashcards, id_flashcard=id_flashcard)
+    topic = flashcard.id_topic 
+
+    if request.method == 'POST':
+        form = FlashcardsForm(request.POST, instance=flashcard)
+        if form.is_valid():
+            flashcard = form.save(commit=False)
+            flashcard.id_topic = topic  
+            flashcard.save()
+            return redirect(reverse('flashcards', kwargs={'slug_topic': topic.slug_topic}))
+    else:
+        form = FlashcardsForm(instance=flashcard)
+
+    return render(request, 'forms.html', {'form': form})

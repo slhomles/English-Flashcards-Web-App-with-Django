@@ -122,3 +122,39 @@ h4 {
     border-radius: 10px;
     text-align: center;
   }  
+
+/* Nút Custom */
+button.custom, button.btn-danger {
+    width: 100%; /* Kích thước nút rộng bằng nhau trong thẻ cha */
+    padding: 10px 0; /* Đồng bộ chiều cao */
+    font-size: 16px; /* Đảm bảo font đồng nhất */
+    border-radius: 5px; /* Bo tròn giống nhau */
+    margin-top: 10px; /* Khoảng cách phía trên */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button.custom {
+    background-color: #28a745; /* Màu xanh */
+    color: white;
+    border: none;
+}
+
+button.custom:hover {
+    background-color: #218838; /* Màu xanh đậm khi hover */
+}
+
+/* Khoảng cách giữa các nút */
+.card-body button {
+    margin-bottom: 10px; /* Tạo khoảng cách giữa hai nút */
+}
+
+button.btn-danger {
+    background-color: #dc3545; /* Màu đỏ */
+    color: white;
+    border: none;
+}
+
+button.btn-danger:hover {
+    background-color: #c82333; /* Màu đỏ đậm khi hover */
+}

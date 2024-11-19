@@ -17,6 +17,7 @@
                 <div class="card word-card">
                     <div class="card-body">
                         <a href="{% url 'word_detail' word.slug_flashcard %}" class="word-title">{{ word.front }}</a>
+                        <button class="custom" onclick="window.location.href='{% url 'custom_flashcard' word.id_flashcard %}';">Custom</button>
                         <button class="btn btn-danger" onclick="openDeleteDialog('{{ word.id_flashcard }}');">Delete</button>
                     </div>            
                 </div>
