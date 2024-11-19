@@ -20,6 +20,7 @@
                             <span class="word-title">{{ word.front }}</span>
                         </div>
                     </a>
+                    <button class="custom" onclick="window.location.href='{% url 'custom_flashcard' word.id_flashcard %}';">Custom</button>
                     <button class="btn btn-danger" onclick="openDeleteDialog('{{ word.id_flashcard }}');">Delete</button>
                 </div>
 

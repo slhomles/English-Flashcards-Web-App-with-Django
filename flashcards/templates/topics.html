@@ -19,6 +19,7 @@
                         <span>{{ topic.name_topic }}</span>
                     </div>
                 </a>
+                <button class="custom" onclick="window.location.href='{% url 'custom_topic' topic.id_topic %}';">Custom</button>
                 <button class="btn btn-danger" onclick="openDeleteDialog('{{ topic.id_topic }}');">Delete</button>
             </div>
 
