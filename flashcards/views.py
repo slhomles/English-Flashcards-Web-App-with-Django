@@ -11,6 +11,7 @@ from .forms import RegistrationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 def topics(request):
     if request.user.is_authenticated:
@@ -41,6 +42,7 @@ def word_detail(request, slug_flashcard):
     }
     return render(request, 'word_detail.html', context)
 
+@login_required(login_url='/login/')
 def create_topic(request):
     if request.method == 'POST':
         form = TopicForm(request.POST, request.FILES)  # Thêm request.FILES để xử lý file upload
