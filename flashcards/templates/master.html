@@ -28,6 +28,12 @@
                 <li><a href="{% url 'create_topic' %}">Create New Topic</a></li>
                 <li><a href="{% url 'quiz' %}">Multiple Choice</a></li>
                 <li><a href="{% url 'hangman' %}">Hangman</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Đăng nhập</a></li>
+                <li><a href="{% url 'register' %}">Đăng ký</a></li>
+                {% endif %}
             </ul>
 
             {% comment %} <!-- Thanh tìm kiếm -->

@@ -7,7 +7,7 @@
 
 .row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Card lớn hơn */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
     gap: 20px;
     width: 100%;
     max-width: 1200px;
@@ -24,13 +24,13 @@ h4 {
 }
 /* Card styling */
 .card, .add-word-btn {
-    border: 1px solid #ddd;
+    border: 1px solid #F5F5DC;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
-    background-color: #fff;
+    background-color: #F5F5DC;
     text-align: center;
-    overflow: hidden; /* Đảm bảo nội dung không bị tràn */
+    overflow: hidden; 
     position: relative;
     padding: 20px;
 }
@@ -46,28 +46,28 @@ h4 {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    font-weight: bold; /* In đậm chữ */
-    font-size: 1.2em; /* Cỡ chữ có thể thay đổi nếu cần */
+    font-weight: bold; 
+    font-size: 1.2em; 
     color: #333;
 }
 
 /* Card link */
 .card-link {
     text-decoration: none;
-    color: inherit; /* Sử dụng màu từ phần tử cha */
+    color: inherit; 
     display: block;
     height: 100%;
 }
 
 .card-link:hover {
     text-decoration: none;
-    color: burlywood; /* Màu chữ khi hover */
+    color: burlywood; 
 }
 
 /* Word card */
 .word-card, .add-word-btn {
     padding: 15px;
-    background-color: #f9f9f9;
+    background-color: #F5F5DC;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -93,6 +93,40 @@ h4 {
     color: burlywood;
 }
 
+/* Button container styles */
+.button-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Custom button */
+.custom {
+    background-color: #28a745; 
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.custom i {
+    font-size: 1.2em; 
+}
+
+.custom:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
 /* Delete button */
 .btn-danger {
     background-color: #ff4d4d;
@@ -104,6 +138,14 @@ h4 {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-danger i {
+    font-size: 1.2em;
 }
 
 .btn-danger:hover {
@@ -147,4 +189,21 @@ h4 {
 .modal-content button,
 .modal-content .btn-danger {
     margin-top: 10px;
+}
+/* Cancel button */
+.modal-content button {
+    background-color: #f0f0f0; 
+    color: #333; 
+    border: 1px solid #ccc; 
+    padding: 8px 16px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.modal-content button:hover {
+    background-color: #e0e0e0; 
+    transform: scale(1.05); 
 }

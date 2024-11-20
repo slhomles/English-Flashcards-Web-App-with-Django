@@ -31,3 +31,7 @@ button[type='submit']:hover {
     background-color: #FBF4DB; /* Màu nền khi hover */
 }
 
+.center-text 
+{ text-align: center; 
+   margin-top: 20px;
+}

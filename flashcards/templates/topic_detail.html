@@ -5,6 +5,7 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/Topics.css' %}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -20,14 +21,20 @@
                             <span class="word-title">{{ word.front }}</span>
                         </div>
                     </a>
-                    <button class="custom" onclick="window.location.href='{% url 'custom_flashcard' word.id_flashcard %}';">Custom</button>
-                    <button class="btn btn-danger" onclick="openDeleteDialog('{{ word.id_flashcard }}');">Delete</button>
+                    <div class="button-container">
+                        <button class="custom" onclick="window.location.href='{% url 'custom_flashcard' word.id_flashcard %}';">
+                            <i class="fas fa-cogs"></i>
+                        </button>
+                        <button class="btn btn-danger" onclick="openDeleteDialog('{{ word.id_flashcard }}');">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div id="customModal-{{ word.id_flashcard }}" class="modal">
                     <div class="modal-content">
                         <h2>Confirm Delete</h2>
-                        <p>Are you sure you want to delete this flashcard?</p>
+                        <p>Are you sure you want to delete this word?</p>
                         <button id="cancelButton-{{ word.id_flashcard }}">Cancel</button>
                         <a href="{% url 'delete_flashcard' word.id_flashcard %}" class="btn btn-danger">Delete</a>
                     </div>

@@ -161,7 +161,7 @@ def register(request):
         if form.is_valid():
             form.save()  # Lưu người dùng vào database
             messages.success(request, 'Tài khoản của bạn đã được tạo thành công!')
-            return redirect('topics')  # Điều hướng đến trang đăng nhập hoặc trang khác
+            return redirect('login')  # Điều hướng đến trang đăng nhập hoặc trang khác
     else:
         form = RegistrationForm()
     return render(request, 'register.html', {'form': form})
@@ -173,7 +173,6 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Đăng nhập thành công!')
             return redirect('topics')  # Thay 'home' bằng tên view hoặc URL bạn muốn chuyển đến sau đăng nhập
         else:
             messages.error(request, 'Tên đăng nhập hoặc mật khẩu không đúng.')
@@ -181,6 +180,5 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    messages.info(request, 'Bạn đã đăng xuất.')
     return redirect('topics')
 
