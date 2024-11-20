@@ -24,8 +24,11 @@
 
 .nav-links {
     display: flex;
+    align-items: center;
     list-style: none;
     gap: 20px;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links a {
@@ -34,9 +37,37 @@
     text-decoration: none;
     padding: 8px 15px;
     border-radius: 4px;
+    margin-bottom: 0%;
     transition: background-color 0.3s;
 }
 
 .nav-links a:hover {
     background-color: #FAB12F;
+}
+
+.navbar-login {
+    display: flex;
+    gap: 15px;
+    align-items: center; 
+    list-style: none;
+    margin: 0; 
+    padding: 0; 
+}
+
+.navbar-login a {
+    font-size: 1.1em; 
+    color: #FDE7BB; 
+    text-decoration: none; 
+    padding: 8px 15px; 
+    border-radius: 4px; 
+    transition: background-color 0.3s; 
+}
+
+.navbar-login a:hover {
+    background-color: #FAB12F;
+    color: #333; 
+}
+
+.navbar-login li {
+    display: inline;
 }
