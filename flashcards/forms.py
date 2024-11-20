@@ -8,6 +8,14 @@ class TopicForm(forms.ModelForm):
         model = Topic
         fields = ['name_topic','image_topic']
 
+    def save(self, user=None, *args, **kwargs):
+        topic = super().save(commit=False)
+        if user and user.is_authenticated:
+            topic.created_by = user
+        topic.is_default = False
+        topic.save()
+        return topic
+
 class FlashcardsForm(forms.ModelForm):
     class Meta:
         model = Flashcards

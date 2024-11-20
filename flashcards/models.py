@@ -9,9 +9,11 @@ from django.contrib.auth.models import User
 class Topic(models.Model):
     id_topic = models.AutoField(primary_key = True, null = False)
     name_topic = models.CharField(max_length = 50, blank = False)
-    type_topic = models.CharField(max_length = 50, blank = False)
+    type_topic = models.CharField(max_length = 50, blank = True)
     slug_topic = models.SlugField(null=False, blank=True)
     image_topic = models.ImageField(upload_to='images/', max_length=100, blank=True, null=True)
+    is_default = models.BooleanField(default=False)  # True nếu là topic mặc định
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug_topic:  
