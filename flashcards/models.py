@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import default
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+import requests
 
 # pip install google-cloud-texttospeech trước khi chạy
 
@@ -111,9 +112,10 @@ class Flashcards(models.Model):
         url = f"https://www.dictionaryapi.com/api/v3/references/collegiate/json/{word}?key={"959a4e11-8731-4fbd-bd13-ec72c0a16405"}"
     
         response = requests.get(url)
+
         print(f"Response Status Code: {response.status_code}")
 
-        if response.status_code == 200:
+        if response.status_code == 200: # Mã trạng thái HTTP responce 200 nghĩa là yêu cầu thành công
             data = response.json()
             if data:
                 spell = data[0].get('hwi', {}).get('prs', [{}])[0].get('mw', '')   
