@@ -16,4 +16,7 @@ urlpatterns = [
     path('delete_flashcard/<int:id_flashcard>/', views.delete_flashcard, name='delete_flashcard'),
     path('custom_topic/<int:id_topic>/', views.custom_topic, name='custom_topic'),
     path('custom_flashcard/<int:id_flashcard>/', views.custom_flashcard, name='custom_flashcard'),
+    path('register/', views.register, name='register'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
 ]

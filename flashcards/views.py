@@ -7,13 +7,20 @@ import random
 from django.core.serializers.json import DjangoJSONEncoder
 import json
 from django.urls import reverse
+from .forms import RegistrationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render
 
 def topics(request):
-    topics = Topic.objects.all()  # Không sử dụng .values() ở đây
-    context = {
-        'topics': topics,
-    }
-    return render(request, 'topics.html', context)
+    if request.user.is_authenticated:
+        # Lấy topic mặc định và topic do người dùng đăng nhập tạo ra
+        topics = Topic.objects.filter(is_default=True) | Topic.objects.filter(created_by=request.user)
+    else:
+        # Chỉ hiển thị topic mặc định cho người dùng chưa đăng nhập
+        topics = Topic.objects.filter(is_default=True)
+
+    return render(request, 'topics.html', {'topics': topics})
 
 
 
@@ -38,7 +45,7 @@ def create_topic(request):
     if request.method == 'POST':
         form = TopicForm(request.POST, request.FILES)  # Thêm request.FILES để xử lý file upload
         if form.is_valid():
-            form.save()
+            form.save(user=request.user)
             return redirect("topics")
     else:
         form = TopicForm()
@@ -148,3 +155,32 @@ def custom_flashcard(request, id_flashcard):
         form = FlashcardsForm(instance=flashcard)
 
     return render(request, 'forms.html', {'form': form})
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()  # Lưu người dùng vào database
+            messages.success(request, 'Tài khoản của bạn đã được tạo thành công!')
+            return redirect('topics')  # Điều hướng đến trang đăng nhập hoặc trang khác
+    else:
+        form = RegistrationForm()
+    return render(request, 'register.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Đăng nhập thành công!')
+            return redirect('topics')  # Thay 'home' bằng tên view hoặc URL bạn muốn chuyển đến sau đăng nhập
+        else:
+            messages.error(request, 'Tên đăng nhập hoặc mật khẩu không đúng.')
+    return render(request, 'login.html')  # Trang HTML hiển thị form đăng nhập
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, 'Bạn đã đăng xuất.')
+    return redirect('topics')
+
