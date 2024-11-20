@@ -42,24 +42,41 @@ class Flashcards(models.Model):
     id_topic = models.ForeignKey(Topic,on_delete = models.CASCADE )
     slug_flashcard = models.SlugField(null=False, blank=True)
     pronunciation = models.URLField(blank=True, null=False)
-    spell = models.CharField(max_length=100, blank=True, null=False)
+    spell = models.CharField(max_length=100, blank=True, null=True)
 
+    # def save(self, *args, **kwargs):
+    #     if not self.slug_flashcard:  
+    #         self.slug_flashcard = slugify(self.front) 
+    #     if not self.pronunciation:
+    #         # sử dụng api của oxford
+    #         #pronunciation_url = self.get_pronunciation(self.front)
+    #         # sử dụng api của responsivevoice
+    #         pronunciation_url = self.speak_word(self.front)
+    #         if pronunciation_url:
+    #             self.pronunciation = pronunciation_url
+    #             # self.pronunciation = pronunciation_url[0] nếu của oxford
+    #     if not self.spell:
+    #         spell_word = self.get_spell(self.front)
+    #         if spell_word:
+    #             self.spell = spell_word
+    #     super().save(*args, **kwargs)
     def save(self, *args, **kwargs):
-        if not self.slug_flashcard:  
-            self.slug_flashcard = slugify(self.front) 
-        if not self.pronunciation:
-            # sử dụng api của oxford
-            #pronunciation_url = self.get_pronunciation(self.front)
-            # sử dụng api của responsivevoice
+        self.slug_flashcard = slugify(self.front)
+        if self.get_pronunciation(self.front):
+            pronunciation_url = self.get_pronunciation(self.front)
+        else: 
             pronunciation_url = self.speak_word(self.front)
-            if pronunciation_url:
-                self.pronunciation = pronunciation_url
-                # self.pronunciation = pronunciation_url[0] nếu của oxford
-        if not self.spell:
-            spell_word = self.get_spell(self.front)
-            if spell_word:
-                self.spell = spell_word
+        if pronunciation_url:
+            self.pronunciation = pronunciation_url
+
+        spell_word = self.get_spell(self.front)
+        if spell_word:
+            self.spell = spell_word
+        else:
+            self.spell = None
+
         super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f'{self.front}'
