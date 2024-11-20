@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import default
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 import requests
 
 # pip install google-cloud-texttospeech trước khi chạy
@@ -9,9 +10,11 @@ import requests
 class Topic(models.Model):
     id_topic = models.AutoField(primary_key = True, null = False)
     name_topic = models.CharField(max_length = 50, blank = False)
-    type_topic = models.CharField(max_length = 50, blank = False)
+    type_topic = models.CharField(max_length = 50, blank = True)
     slug_topic = models.SlugField(null=False, blank=True)
     image_topic = models.ImageField(upload_to='images/', max_length=100, blank=True, null=True)
+    is_default = models.BooleanField(default=False)  # True nếu là topic mặc định
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug_topic:  
@@ -39,24 +42,41 @@ class Flashcards(models.Model):
     id_topic = models.ForeignKey(Topic,on_delete = models.CASCADE )
     slug_flashcard = models.SlugField(null=False, blank=True)
     pronunciation = models.URLField(blank=True, null=False)
-    spell = models.CharField(max_length=100, blank=True, null=False)
+    spell = models.CharField(max_length=100, blank=True, null=True)
 
+    # def save(self, *args, **kwargs):
+    #     if not self.slug_flashcard:  
+    #         self.slug_flashcard = slugify(self.front) 
+    #     if not self.pronunciation:
+    #         # sử dụng api của oxford
+    #         #pronunciation_url = self.get_pronunciation(self.front)
+    #         # sử dụng api của responsivevoice
+    #         pronunciation_url = self.speak_word(self.front)
+    #         if pronunciation_url:
+    #             self.pronunciation = pronunciation_url
+    #             # self.pronunciation = pronunciation_url[0] nếu của oxford
+    #     if not self.spell:
+    #         spell_word = self.get_spell(self.front)
+    #         if spell_word:
+    #             self.spell = spell_word
+    #     super().save(*args, **kwargs)
     def save(self, *args, **kwargs):
-        if not self.slug_flashcard:  
-            self.slug_flashcard = slugify(self.front) 
-        if not self.pronunciation:
-            # sử dụng api của oxford
-            #pronunciation_url = self.get_pronunciation(self.front)
-            # sử dụng api của responsivevoice
+        self.slug_flashcard = slugify(self.front)
+        if self.get_pronunciation(self.front):
+            pronunciation_url = self.get_pronunciation(self.front)
+        else: 
             pronunciation_url = self.speak_word(self.front)
-            if pronunciation_url:
-                self.pronunciation = pronunciation_url
-                # self.pronunciation = pronunciation_url[0] nếu của oxford
-        if not self.spell:
-            spell_word = self.get_spell(self.front)
-            if spell_word:
-                self.spell = spell_word
+        if pronunciation_url:
+            self.pronunciation = pronunciation_url
+
+        spell_word = self.get_spell(self.front)
+        if spell_word:
+            self.spell = spell_word
+        else:
+            self.spell = None
+
         super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f'{self.front}'
@@ -118,20 +138,6 @@ class Flashcards(models.Model):
 
     def __str__(self):
         return f'{self.front}'
-    
-class User(models.Model):
-    id_user = models.AutoField(primary_key= True, null=False)
-    username = models.CharField(max_length=200, blank=False)
-    slug_user = models.SlugField(null=False, blank=True)
-
-    def __str__(self):
-        return f'{self.username}'
-    
-    def save(self, *args, **kwargs):
-        if not self.slug_user:  
-            self.slug_user = slugify(self.username) 
-        super().save(*args, **kwargs)
-
 class Study(models.Model):
     id_study = models.AutoField(primary_key=True, null=False)
     start_time = models.DateTimeField(null=False)

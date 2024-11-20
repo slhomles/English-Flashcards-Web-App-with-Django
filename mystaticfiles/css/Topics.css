@@ -1,3 +1,4 @@
+/* Container styling */
 .topic-container, .practice-button {
     display: flex;
     justify-content: center;
@@ -6,64 +7,11 @@
 
 .row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
     gap: 20px;
     width: 100%;
     max-width: 1200px;
 }
-
-/* Card styling */
-.card, .word-card, .add-word-btn {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-    padding: 20px;
-    background-color: #fff;
-    text-align: center;
-}
-
-.card:hover, .btn-practice:hover, .add-word-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.card-body, .add-word-btn{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-.add-word-btn img{
-    font-size: 1.2em;
-    color: #333;
-    font-weight: bold;
-    margin: 10px 0;
-    text-decoration: none;
-}
-.card-body a, .word-title a {
-    font-size: 1.2em;
-    color: #333;
-    font-weight: bold;
-    margin: 10px 0;
-    text-decoration: none;
-}
-
-.card-body a:hover, .word-title a:hover {
-    color: #007bff;
-}
-.add-word-button img {
-    object-fit: contain; 
-}
-.card-info, .btn-practice {
-    font-size: 0.9em;
-    color: #666;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding-top: 10px;
-}
-
 h1 {
     text-align: center;
     font-size: 2.5em;
@@ -74,31 +22,188 @@ h4 {
     margin-top: 20px;
     text-align: center;
 }
+/* Card styling */
+.card, .add-word-btn {
+    border: 1px solid #F5F5DC;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #F5F5DC;
+    text-align: center;
+    overflow: hidden; 
+    position: relative;
+    padding: 20px;
+}
 
-/* Word list styling */
-.word-list {
+.card:hover, .add-word-btn {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Card body */
+.card-body, .add-word-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    max-width: 600px;
-    margin: 0 auto;
+    gap: 10px;
+    font-weight: bold; 
+    font-size: 1.2em; 
+    color: #333;
 }
 
-/* Practice button styling */
-.btn-practice {
-    padding: 10px 20px;
-    border: 2px solid #007bff;
+/* Card link */
+.card-link {
+    text-decoration: none;
+    color: inherit; 
+    display: block;
+    height: 100%;
+}
+
+.card-link:hover {
+    text-decoration: none;
+    color: burlywood; 
+}
+
+/* Word card */
+.word-card, .add-word-btn {
+    padding: 15px;
+    background-color: #F5F5DC;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    background-color: #e6f0ff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.word-card:hover, .add-word-btn {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Word title  */
+.word-title {
+    font-size: 1.2em;
     color: #333;
-    font-size: 1.1em;
     font-weight: bold;
     text-decoration: none;
-    transition: background-color 0.2s, color 0.2s;
+    margin: 5px 0;
+    transition: color 0.3s;
 }
 
-.btn-practice:hover {
-    background-color: #007bff;
+.word-title:hover, .add-word-btn {
+    color: burlywood;
+}
+
+/* Button container styles */
+.button-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Custom button */
+.custom {
+    background-color: #28a745; 
     color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.custom i {
+    font-size: 1.2em; 
+}
+
+.custom:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Delete button */
+.btn-danger {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-danger i {
+    font-size: 1.2em;
+}
+
+.btn-danger:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    margin: 15% auto;
+    padding: 20px;
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.modal-content button,
+.modal-content .btn-danger {
+    margin-top: 10px;
+}
+/* Cancel button */
+.modal-content button {
+    background-color: #f0f0f0; 
+    color: #333; 
+    border: 1px solid #ccc; 
+    padding: 8px 16px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.modal-content button:hover {
+    background-color: #e0e0e0; 
+    transform: scale(1.05); 
 }

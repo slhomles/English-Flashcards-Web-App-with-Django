@@ -12,11 +12,17 @@
     <div class="flip-card" onclick="toggleFlip(this)">
         <div class="flip-card-inner">
             <!-- Mặt trước của từ -->
-            <div class="flip-card-front">
-                <p class="word-front">{{ word.front }}</p>
-                <button id="startRecording" class="mic-button">
+            <div class="flip-card-front">           
+                <p class="word-front" id="correctWord" data-word = {{word.front}}>{{ word.front }}</p>
+
+                {% if word.spell %}
+                    <p class="word-spell">[{{ word.spell }}]</p>
+                {% endif %}
+
+                <button id="startRecognition" class="mic-button">
                     <img src="{% static 'images/mic-button.png' %}" alt="Nhận diện phát âm" width="30" height="30">
                 </button>
+
                 <p id="recognitionResult"></p>
                 <p id="pronunciationResult"></p>
                 <p class="flip-instruction">Click để lật xem nghĩa</p>
@@ -35,5 +41,5 @@
 </div>
 
 <script src="{% static 'js/flip_card.js' %}"></script>
-<script src="{% static 'js/speechandsent.js' %}"></script>
+<script src="{% static 'js/speech.js' %}"></script>
 {% endblock %}

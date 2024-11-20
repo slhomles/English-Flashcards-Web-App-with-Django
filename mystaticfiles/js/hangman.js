@@ -11,8 +11,9 @@ const hangmanImages = [
 
 const maxAttempts = 6;
 let currentImageIndex = 0;
-let word = "long"; // Bạn có thể thay đổi từ này hoặc lấy từ backend để ngẫu nhiên
-let displayWord = "_ ".repeat(word.length).trim();
+let wordToGuess = document.getElementById('hangmanWord').value;
+console.log(wordToGuess);
+let displayWord = "_ ".repeat(wordToGuess.length).trim();
 let attempts = 0;
 
 // Khởi tạo hiển thị từ
@@ -22,28 +23,42 @@ document.getElementById("word-display").textContent = displayWord;
 function updateHangmanImage() {
     document.getElementById("hangman-image").src = hangmanImages[currentImageIndex];
 }
+function reloadPage() {
+    location.reload();
+}
 function startGame() {
-    const imageElement = document.getElementById("hangman-image");
-    if (imageElement) {
-        imageElement.src = hangmanImages[0];
-    }
+    // Đặt lại trạng thái
     attempts = 0;
     currentImageIndex = 0;
-    displayWord = "_ ".repeat(word.length).trim();
+    displayWord = "_ ".repeat(wordToGuess.length).trim();
     document.getElementById("word-display").textContent = displayWord;
+
+    // Đặt lại ảnh hangman
+    document.getElementById("hangman-image").src = hangmanImages[0];
+
+    // Ẩn thông báo và nút "Try Again"
     document.getElementById("message").style.display = "none";
+    document.getElementById("try-again-container").style.display = "none";
+
+    // Reset trạng thái các nút chữ cái
+    const buttons = document.querySelectorAll(".letter-button");
+    buttons.forEach(button => {
+        button.disabled = false;
+        button.classList.remove("correct", "incorrect");
+    });
 }
+
 
 // Hàm đoán chữ
 function guessLetter(letter, buttonElement) {
-    if (attempts >= maxAttempts || displayWord === word) return; // Kết thúc trò chơi nếu thua hoặc đoán đúng
+    if (attempts >= maxAttempts || displayWord === wordToGuess) return; // Kết thúc trò chơi nếu thua hoặc đoán đúng
     
     let newDisplay = "";
     let correctGuess = false;
 
     // Kiểm tra từng chữ cái trong từ
-    for (let i = 0; i < word.length; i++) {
-        if (word[i] === letter) {
+    for (let i = 0; i < wordToGuess.length; i++) {
+        if (wordToGuess[i] === letter) {
             newDisplay += letter + " ";
             correctGuess = true;
         } else {
@@ -68,14 +83,17 @@ function guessLetter(letter, buttonElement) {
     // Kiểm tra điều kiện thua
     if (attempts >= maxAttempts) {
         document.getElementById("message").style.display = "block";
-        document.getElementById("correct-word").textContent = word;
+        document.getElementById("correct-word").textContent = wordToGuess;
+        document.getElementById("try-again-container").style.display = "block"; // Hiển thị nút "Try Again"
     }
 
-    // Kiểm tra điều kiện thắng
-    if (displayWord.replace(/\s+/g, '') === word) {
+// Kiểm tra điều kiện thắng
+    if (displayWord.replace(/\s+/g, '') === wordToGuess) {
         document.getElementById("message").style.display = "block";
         document.getElementById("message").style.color = "rgb(0, 128, 0)"; // Màu xanh lá cây
         document.getElementById("message").textContent = "Congratulations! You've guessed the word!";
+        document.getElementById("try-again-container").style.display = "block"; // Hiển thị nút "Try Again"
     }
+
 }
 

@@ -1,40 +1,41 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f9f9f9;
-    margin: 0;
-}
-
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 1.5em;
-    z-index: 1000;
-}
-
+/* Tổng quát cho quiz container */
 .quiz-container {
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
     text-align: center;
-    margin-top: 80px;
+    margin: 80px auto;
+    font-family: Arial, sans-serif;
 }
 
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin: 20px 0 30px;
+}
+
+/* Phần câu hỏi */
 .question-section {
     margin-bottom: 20px;
+    color: #333;
 }
 
+#question-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#question {
+    font-size: 1em;
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Các tùy chọn đáp án */
 .options-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -46,60 +47,74 @@ body {
     font-size: 1em;
     border-radius: 8px;
     border: 2px solid #ddd;
-    cursor: pointer;
     background-color: #f9f9f9;
-    transition: all 0.3s ease;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, transform 0.2s ease;
 }
 
+.option-btn:hover {
+    background-color: #eef9ff;
+    border-color: #007BFF;
+    transform: translateY(-2px);
+}
+
+/* Trạng thái đáp án đúng */
 .option-btn.correct {
     border-color: #4CAF50;
     background-color: #e0f7e0;
     color: #000000;
     font-weight: bold;
-    opacity: 1;
-
 }
 
+/* Trạng thái đáp án sai */
 .option-btn.incorrect {
     border-color: #f44336;
     background-color: #fdecea;
     color: #888;
-    opacity: 0.6;
-    font-weight: normal;
+    opacity: 0.8;
 }
 
+/* Tùy chọn bị vô hiệu */
 .option-btn:disabled {
     cursor: not-allowed;
     opacity: 0.6;
 }
 
+/* Nút tiếp theo */
 .next-btn {
     margin-top: 20px;
     padding: 10px 15px;
     border: none;
-    background-color: #4CAF50;
-    color: #fff;
+    background-color: #007BFF;
+    color: #ffffff;
+    font-size: 1em;
     border-radius: 5px;
     cursor: pointer;
     display: none;
+    transition: background-color 0.3s ease;
 }
 
+.next-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Bảng điểm */
 #score-board {
     margin-top: 15px;
+    font-size: 1em;
     font-weight: bold;
     color: #555;
 }
 
+/* Popup khi hoàn tất */
 .completion-popup {
     display: none;
-    /* Ẩn đi ban đầu */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Mờ nền */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,24 +122,44 @@ body {
 }
 
 .popup-content {
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 10px;
     text-align: center;
     width: 300px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 .popup-content h2 {
     margin-top: 0;
+    color: #333;
+    font-size: 1.4em;
+    font-weight: bold;
 }
 
+.popup-content p {
+    margin: 15px 0;
+    color: #555;
+}
+
+/* Nút đóng popup */
 .close-popup-btn {
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
+    font-size: 1em;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-popup-btn:hover {
+    background-color: #388e3c;
+}
+
+.close-popup-btn a {
+    text-decoration: none;
+    color: white;
 }

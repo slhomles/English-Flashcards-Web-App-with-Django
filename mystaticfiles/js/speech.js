@@ -25,9 +25,8 @@ if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
         recognitionResult.textContent = `Bạn đã nói: ${capitalizedTranscript}`;
 
         // Từ cần kiểm tra 
-        const correctWordElement = document.getElementById('correctWord');
-        const correctWord = capitalizeFirstLetter(correctWordElement.dataset.word);
-        
+        const correctWordInput = document.getElementById('correctWord');
+        const correctWord = capitalizeFirstLetter(correctWordInput.dataset.word);
 
         // In ra để debug
         console.log("Kết quả đã nhận diện:", transcript);
