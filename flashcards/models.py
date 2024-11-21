@@ -3,7 +3,6 @@ from django.template.defaultfilters import default
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 import requests
-
 # pip install google-cloud-texttospeech trước khi chạy
 
 # Tạo các mô hình của bạn ở đây.
@@ -17,6 +16,7 @@ class Topic(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def save(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         if not self.slug_topic:  
             self.slug_topic = slugify(self.name_topic)
         super().save(*args, **kwargs)

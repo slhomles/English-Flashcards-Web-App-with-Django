@@ -16,7 +16,7 @@
             <div class="card">
                 <a href="{% url 'flashcards' topic.slug_topic %}" class="card-link">
                     <div class="card-body">
-                        <img src="{% if topic.image_topic %}{{ topic.image_topic.url }}{% else %}{{ default_image_url }}{% endif %}" class="card-img-top" alt="{{ topic.name_topic }}" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
+                        <img src="{% if topic.image_topic %}{{ topic.image_topic.url }}{% else %}{{ default_image_url }}{% endif %}" class="card-img-top" alt="{{ topic.name_topic }}" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 10px;">
                         <span>{{ topic.name_topic }}</span>
                     </div>
                 </a>
