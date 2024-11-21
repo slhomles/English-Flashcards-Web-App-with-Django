@@ -12,7 +12,6 @@ class TopicForm(forms.ModelForm):
         topic = super().save(commit=False)
         if user and user.is_authenticated:
             topic.created_by = user
-        topic.is_default = False
         topic.save()
         return topic
 
