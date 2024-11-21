@@ -2,7 +2,7 @@ from django.db import models
 from django.template.defaultfilters import default
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-
+import requests 
 # pip install google-cloud-texttospeech trước khi chạy
 
 # Tạo các mô hình của bạn ở đây.
@@ -12,7 +12,7 @@ class Topic(models.Model):
     type_topic = models.CharField(max_length = 50, blank = True)
     slug_topic = models.SlugField(null=False, blank=True)
     image_topic = models.ImageField(upload_to='images/', max_length=100, blank=True, null=True)
-    is_default = models.BooleanField(default=False)  # True nếu là topic mặc định
+    is_default = models.BooleanField(null = True)  # True nếu là topic mặc định
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def save(self, *args, **kwargs):
