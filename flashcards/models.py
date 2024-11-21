@@ -2,7 +2,7 @@ from django.db import models
 from django.template.defaultfilters import default
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-import requests 
+import requests
 # pip install google-cloud-texttospeech trước khi chạy
 
 # Tạo các mô hình của bạn ở đây.
