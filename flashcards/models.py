@@ -16,8 +16,7 @@ class Topic(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
-        if not self.slug_topic:  
+        if not self.slug_topic or self.name_topic != Topic.objects.get(id_topic=self.id_topic).name_topic:  # Kiểm tra nếu tên thay đổi
             self.slug_topic = slugify(self.name_topic)
         super().save(*args, **kwargs)
 
@@ -86,7 +85,7 @@ class Flashcards(models.Model):
         url = f"https://od-api-sandbox.oxforddictionaries.com/api/v2/entries/en-gb/{word.lower()}"
 
         response = requests.get(url, headers={"app_id": '47f410f8', "app_key": '6f4af303716548eb1af2998329cf76b0'})
-        print(f"Response Status Code: {response.status_code}")
+        print(f"HTTP Responce: {response.status_code}")
 
         if response.status_code == 200:  # Mã trạng thái HTTP 200 nghĩa là yêu cầu thành công
             data = response.json()
