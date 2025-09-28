@@ -1,8 +1,8 @@
-English Flashcards Web App with Django 📚
+## English Flashcards Web App with Django 📚
 
 A simple web application for learning English vocabulary through flashcards, built with Django.
 
-📂 Project Structure
+## 📂 Project Structure
 English-Flashcards-Web-App-with-Django/
 ├── btlpython/        # Django project settings, urls, wsgi/asgi
 ├── flashcards/       # Core Django app: models, views, templates
@@ -12,7 +12,7 @@ English-Flashcards-Web-App-with-Django/
 ├── manage.py         # Django management script
 ├── .gitignore
 
-✨ Features
+## ✨ Features
 
 Add, edit, delete flashcards.
 
@@ -24,7 +24,7 @@ Simple UI with static files (HTML/CSS/JS).
 
 Extendable roadmap: practice modes, spaced repetition, progress tracking.
 
-⚙️ Tech Stack
+## ⚙️ Tech Stack
 
 Backend: Django (Python)
 
@@ -34,7 +34,7 @@ Database: SQLite (default, can switch to Postgres/MySQL)
 
 Media/Static: Django static & media file handling
 
-🚀 Getting Started
+## 🚀 Getting Started
 1. Clone the repository
 git clone https://github.com/slhomles/English-Flashcards-Web-App-with-Django.git
 cd English-Flashcards-Web-App-with-Django
@@ -56,7 +56,7 @@ python manage.py runserver
 
 Access at: http://127.0.0.1:8000
 
-🗺️ Roadmap
+## 🗺️ Roadmap
 
  Multiple practice modes (MCQ, typing test).
 
@@ -70,11 +70,11 @@ Access at: http://127.0.0.1:8000
 
  Docker deployment.
 
-🤝 Contributing
+## 🤝 Contributing
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to change.
 
-📜 License
+## 📜 License
 
 This project is licensed under the MIT License – see the LICENSE
  file for details.
