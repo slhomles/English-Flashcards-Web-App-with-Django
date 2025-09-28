@@ -1,7 +1,7 @@
 ## English Flashcards Web App with Django 📚
 
 A simple web application for learning English vocabulary through flashcards, built with Django.
-
+```
 ## 📂 Project Structure
 English-Flashcards-Web-App-with-Django/
 ├──btlpython/        # Django project settings, urls, wsgi/asgi
@@ -11,7 +11,7 @@ English-Flashcards-Web-App-with-Django/
 ├──productionfiles/  # Deployment-related configs (optional)
 ├──manage.py         # Django management script
 ├──.gitignore
-
+```
 ## ✨ Features
 
 Add, edit, delete flashcards.
