@@ -4,13 +4,13 @@ A simple web application for learning English vocabulary through flashcards, bui
 
 ## 📂 Project Structure
 English-Flashcards-Web-App-with-Django/
-├── btlpython/        # Django project settings, urls, wsgi/asgi
-├── flashcards/       # Core Django app: models, views, templates
-├── media/images/     # Uploaded images for flashcards
-├── mystaticfiles/    # Static assets (CSS, JS, images)
-├── productionfiles/  # Deployment-related configs (optional)
-├── manage.py         # Django management script
-├── .gitignore
+├──btlpython/        # Django project settings, urls, wsgi/asgi
+├──flashcards/       # Core Django app: models, views, templates
+├──media/images/     # Uploaded images for flashcards
+├──mystaticfiles/    # Static assets (CSS, JS, images)
+├──productionfiles/  # Deployment-related configs (optional)
+├──manage.py         # Django management script
+├──.gitignore
 
 ## ✨ Features
 
